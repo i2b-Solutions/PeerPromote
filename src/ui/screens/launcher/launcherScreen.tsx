@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import { Typography, FormControl, Select, MenuItem, Button } from '@mui/material';
+import { Typography, FormControl, Select, MenuItem, Button, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+// Styled component for the main container
+const MainContainer = styled(Container)({
+    marginTop: '2rem',
+    textAlign: 'center'
+});
 
 /**
  * Functional component representing the Launcher Screen.
  * @returns {JSX.Element} Launcher Screen component.
  */
 const LauncherScreen = (): JSX.Element => {
-    // Hook to navigate
+    // Hook to navigate to different screens
     const navigate = useNavigate();
 
     // State to track the selected option
@@ -26,12 +33,15 @@ const LauncherScreen = (): JSX.Element => {
      * Contains logic to launch the screen.
      */
     const handleLaunchScreen = () => {
-        console.log(`Launching ${selectedOption} screen...`);
+        // Navigate to the selected screen
         navigate(selectedOption);
+
+        // Log a message after initiating navigation
+        console.log(`Launching ${selectedOption} screen...`);
     };
 
     return (
-        <div className="launcher-container" style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <MainContainer maxWidth="lg">
             <div>
                 {/* Typography for the title */}
                 <Typography variant="h3" gutterBottom>
@@ -53,7 +63,7 @@ const LauncherScreen = (): JSX.Element => {
                     Launch Screen
                 </Button>
             </div>
-        </div>
+        </MainContainer>
     );
 };
 

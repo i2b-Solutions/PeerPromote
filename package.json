@@ -14,6 +14,7 @@
     "@types/react": "^18.2.39",
     "@types/react-dom": "^18.2.17",
     "react": "^18.2.0",
+    "react-app-rewire-alias": "^1.1.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
@@ -21,10 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PUBLIC_URL=/launcher react-scripts start",
+    "start": "PUBLIC_URL=/launcher react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "serve": "npm run build && serve -s build"
   },
   "eslintConfig": {
