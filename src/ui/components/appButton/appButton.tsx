@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { Colors } from "@theme/colors";
+import { PoppinsFontSizes } from "@theme/fontSizes";
 
 /**
  * Styled button component with customizable styling.
@@ -28,7 +29,7 @@ const AppButton = styled(Button)<{
     ({ backgroundColor, textColor, underLight, borderLight, round }) => ({
         background: backgroundColor || Colors.main.white,
         color: textColor || Colors.main.black,
-        fontWeight: 400,
+        fontWeight: PoppinsFontSizes.REGULAR,
         textTransform: "none",
         paddingLeft: '1rem',
         borderRadius: round ? '20rem' : '0',
