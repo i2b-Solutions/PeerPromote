@@ -52,7 +52,7 @@ const TopInfluencersSection = () => {
                             {/* Influencer Name */}
                             <Typography variant="h6">{item.name}</Typography>
                             {/* Followers Count */}
-                            <Typography variant="h6" fontWeight={500} color={Colors.main.lightBlue}>
+                            <Typography variant="body1" fontWeight={500} color={Colors.main.lightBlue}>
                                 {item.followers}
                             </Typography>
                             {/* Contact Button */}

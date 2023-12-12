@@ -26,7 +26,6 @@ const UserTypeSelectorContainer = styled(Box)({
 const UserTypeButton = styled(AppButton)({
     flex: 1,
     borderRadius: '0.4rem',
-    fontSize: '1rem',
     padding: '0.5rem',
 });
 
