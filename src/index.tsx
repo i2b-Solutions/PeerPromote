@@ -1,7 +1,7 @@
 // Import React and ReactDOM
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 // Import the main component for your routes
 import RoutesComponent from './ui/flows/routes/router';
