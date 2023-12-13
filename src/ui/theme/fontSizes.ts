@@ -4,3 +4,9 @@ export enum PoppinsFontSizes {
     MEDIUM = 500,
     BOLD = 700
 }
+
+// Available gidact gothic sizes
+export enum DidactGothicFontSizes {
+    REGULAR = 400,
+    BOLD = 700
+}

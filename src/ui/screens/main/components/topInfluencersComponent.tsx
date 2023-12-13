@@ -4,7 +4,7 @@ import AppButton from "@components/appButton/appButton";
 import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
-import { PoppinsFontSizes } from '@theme/fontSizes';
+import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 
 // Styled component for the circular image container
 const ImageContainer = styled(Box)({
@@ -53,7 +53,7 @@ const TopInfluencersSection = () => {
                             {/* Influencer Name */}
                             <Typography variant="h6">{item.name}</Typography>
                             {/* Followers Count */}
-                            <Typography variant="body1" fontWeight={PoppinsFontSizes.MEDIUM} color={Colors.main.lightBlue}>
+                            <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.lightBlue}>
                                 {item.followers}
                             </Typography>
                             {/* Contact Button */}

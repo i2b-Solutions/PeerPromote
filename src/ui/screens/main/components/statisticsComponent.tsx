@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
-import { PoppinsFontSizes } from "@theme/fontSizes";
+import { DidactGothicFontSizes, PoppinsFontSizes } from "@theme/fontSizes";
 
 // Styled component for the StatisticsContainer
 const StatisticsContainer = styled(Grid)({
@@ -50,7 +50,7 @@ const StatisticsSection = () => {
                             {`${data.value}K+`}
                         </Typography>
                         {/* Statistic Name */}
-                        <Typography variant="body1" color={Colors.main.mediumGrey}>
+                        <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.mediumGrey}>
                             {data.name}
                         </Typography>
                     </Box>

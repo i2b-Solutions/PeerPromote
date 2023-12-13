@@ -11,7 +11,7 @@ import AppButton from '@components/appButton/appButton';
 import { UserTypes } from '@data/enums/userEnums';
 import AppTextField from '@components/appTextField/appTextField';
 import { InfluencerImage } from '@assets/images/images';
-import { PoppinsFontSizes } from '@theme/fontSizes';
+import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 
 // Styled component for the UserTypeSelectorContainer
 const UserTypeSelectorContainer = styled(Box)({
@@ -91,7 +91,7 @@ const ConnectSection = () => {
                         <Typography fontWeight={PoppinsFontSizes.BOLD} variant="h4" color={Colors.main.blue}>
                             for your business.
                         </Typography>
-                        <Typography marginTop="2rem" marginBottom="2rem" variant="body1">
+                        <Typography marginTop="2rem" marginBottom="2rem" variant="body1" sx={{fontWeight: DidactGothicFontSizes.BOLD}}>
                             {userType === UserTypes.INFLUENCER
                                 ? 'Are you a business? Discover the perfect influencers to elevate your brand!'
                                 : 'Are you an influencer? Discover exciting collaborations with businesses!'
