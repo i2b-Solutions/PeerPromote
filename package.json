@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PUBLIC_URL=/launcher react-app-rewired start",
+    "start": "PUBLIC_URL=/launcher react-app-rewired start --host 0.0.0.0",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
