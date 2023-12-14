@@ -13,8 +13,7 @@ import { Colors } from "@theme/colors";
  * @param {TextFieldProps} props - Additional TextField props.
  */
 const AppTextField = styled(TextField)<TextFieldProps>({
-    background: Colors.main.lightGrey,
-    color: Colors.main.mediumGrey
+    background: Colors.main.lightGrey
 });
 
 export default AppTextField;

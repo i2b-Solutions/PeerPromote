@@ -13,7 +13,9 @@ const ImageContainer = styled(Box)({
     background: Colors.main.white,
     display: "inline-block",
     borderRadius: '100%',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    border: 'solid 0.2rem',
+    borderColor: Colors.main.white
 });
 
 // Styled component for the contact button
@@ -38,7 +40,7 @@ const TopInfluencersSection = () => {
     return (
         <Box sx={{ mt: 4, bgcolor: Colors.main.darkBlue, color: 'white', p: 2 }}>
             {/* Section Title */}
-            <Typography variant="h4" fontWeight={PoppinsFontSizes.MEDIUM} sx={{ mt: 1, mb: 8, flexGrow: 1 }}>
+            <Typography variant="h4" fontWeight={PoppinsFontSizes.MEDIUM} color={Colors.main.white} sx={{ mt: 1, mb: 8, flexGrow: 1 }}>
                 Top Influencers
             </Typography>
             {/* Grid of influencers */}
@@ -51,14 +53,14 @@ const TopInfluencersSection = () => {
                                 <img src={SelfieImage} alt="Influencer" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                             </ImageContainer>
                             {/* Influencer Name */}
-                            <Typography variant="h6">{item.name}</Typography>
+                            <Typography variant="h6" color={Colors.main.white}>{item.name}</Typography>
                             {/* Followers Count */}
                             <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.lightBlue}>
                                 {item.followers}
                             </Typography>
                             {/* Contact Button */}
                             <ContactButton sx={{ mt: 1, mb: 2 }} variant="contained">
-                                Contact
+                                Connect
                             </ContactButton>
                         </Box>
                     </Grid>
