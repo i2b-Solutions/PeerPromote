@@ -9,12 +9,12 @@ import MainScreen from '../../screens/main/mainScreen';
 const RoutesComponent = () => {
   return (
     // Use BrowserRouter as the router container
-    <Router>
+    <Router basename={process.env.REACT_APP_PUBLIC_PATH}>
       {/* Define the routes using the Routes component */}
       <Routes>
         {/* Define a route for the main path ('/') rendering MainScreen */}
         <Route path='/' element={<MainScreen />} />
-        
+
         {/* Define a route for the '/launcher' path rendering LauncherScreen */}
         <Route path='/launcher' element={<LauncherScreen />} />
       </Routes>

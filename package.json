@@ -22,11 +22,16 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PUBLIC_URL=/launcher react-app-rewired start --host 0.0.0.0",
-    "build": "react-app-rewired build",
+    "start": "dotenv -e .env.dev react-app-rewired start --host 0.0.0.0",
+    "start-prod": "dotenv -e .env.prod react-app-rewired start --host 0.0.0.0",
+    "build-dev": "npm run replace-base-path-dev && dotenv -e .env.dev react-app-rewired build",
+    "build": "npm run replace-base-path-prod && dotenv -e .env.prod react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "serve": "npm run build && serve -s build"
+    "serve-dev": "npm run build:dev && serve -s build",
+    "serve": "npm run build:prod && serve -s build",
+    "replace-base-path-dev": "sed -i 's/# AUTO_REPLACE_BASE_PATH/RewriteBase \\//g' public/.htaccess",
+    "replace-base-path-prod": "sed -i \"s|# AUTO_REPLACE_BASE_PATH|RewriteBase $(grep 'REACT_APP_PUBLIC_PATH' .env.prod | cut -d '=' -f2)/|g\" public/.htaccess"
   },
   "eslintConfig": {
     "extends": [
