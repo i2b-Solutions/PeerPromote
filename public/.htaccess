@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /PeerPromote/
+# AUTO_REPLACE_BASE_PATH
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

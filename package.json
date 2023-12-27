@@ -30,8 +30,8 @@
     "eject": "react-app-rewired eject",
     "serve-dev": "npm run build:dev && serve -s build",
     "serve": "npm run build:prod && serve -s build",
-    "replace-base-path-dev": "sed -i 's/# AUTO_REPLACE_BASE_PATH/RewriteBase \\//g' public/.htaccess",
-    "replace-base-path-prod": "sed -i \"s|# AUTO_REPLACE_BASE_PATH|RewriteBase $(grep 'REACT_APP_PUBLIC_PATH' .env.prod | cut -d '=' -f2)/|g\" public/.htaccess"
+    "replace-base-path-dev": "sed -i 's/# AUTO_REPLACE_BASE_PATH/RewriteBase \\//g' build/.htaccess",
+    "replace-base-path-prod": "sed -i \"s|# AUTO_REPLACE_BASE_PATH|RewriteBase $(grep 'REACT_APP_PUBLIC_PATH' .env.prod | cut -d '=' -f2)/|g\" build/.htaccess"
   },
   "eslintConfig": {
     "extends": [
