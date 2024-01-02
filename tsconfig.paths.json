@@ -11,6 +11,9 @@
             "@data/*": [
                 "./src/data/*"
             ],
+            "@ui/*": [
+                "./src/ui/*"
+            ],
             "@assets/*": [
                 "./src/ui/assets/*"
             ]

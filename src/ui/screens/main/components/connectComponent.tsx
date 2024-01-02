@@ -8,6 +8,7 @@ import AppTextField from '@components/appTextField/appTextField';
 import { InfluencerImage } from '@assets/images/images';
 import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 import { SearchTypes } from '@data/enums/searchEnums';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Styled component for the SelectorContainer.
@@ -66,6 +67,7 @@ const ConnectSection: React.FC = () => {
     const [searchType, setSearchType] = useState<SearchTypes>(SearchTypes.NAME);
     const [name, setName] = useState<string>('');
     const [country, setCountry] = useState<string>('');
+    const { t } = useTranslation();
 
     /**
      * Handles the change of user type.
@@ -106,25 +108,25 @@ const ConnectSection: React.FC = () => {
                 <Grid item xs={12} md={6}>
                     <Box>
                         <Typography variant="h4" color={Colors.main.blue}>
-                            Connect the ideal influencer
+                            {t('main_page.connect')}
                         </Typography>
                         <Typography fontWeight={PoppinsFontSizes.BOLD} variant="h4" color={Colors.main.blue}>
-                            for your business.
+                            {t('main_page.for_business')}
                         </Typography>
                         <Typography marginTop="2rem" marginBottom="2rem" variant="body1" color={Colors.main.darkBlue} sx={{ fontWeight: DidactGothicFontSizes.BOLD }}>
-                            {userType === UserTypes.INFLUENCER ? 'Looking for an Influencer? Discover the perfect influencers to elevate your brand!' : 'Looking for a Business? Explore exciting collaborations and partnerships with businesses!'}
+                            {userType === UserTypes.INFLUENCER ? t('main_page.influencer_look') : t('main_page.business_look')}
                         </Typography>
                         {/* User Type Selector Buttons */}
                         <SelectorContainer>
-                            <SelectionButton textValue={UserTypes.INFLUENCER} selected={userType === UserTypes.INFLUENCER} onClick={() => handleUserTypeChange(UserTypes.INFLUENCER)} />
-                            <SelectionButton textValue={UserTypes.BUSINESS} selected={userType === UserTypes.BUSINESS} onClick={() => handleUserTypeChange(UserTypes.BUSINESS)} />
+                            <SelectionButton textValue={t('influencer')} selected={userType === UserTypes.INFLUENCER} onClick={() => handleUserTypeChange(UserTypes.INFLUENCER)} />
+                            <SelectionButton textValue={t('business')} selected={userType === UserTypes.BUSINESS} onClick={() => handleUserTypeChange(UserTypes.BUSINESS)} />
                         </SelectorContainer>
 
                         {/* User Type Selector Buttons */}
                         {userType === UserTypes.INFLUENCER && (
                             <SelectorContainer>
-                                <SelectionButton textValue={SearchTypes.NAME} selected={searchType === SearchTypes.NAME} onClick={() => handleSearchTypeChange(SearchTypes.NAME)} />
-                                <SelectionButton textValue={SearchTypes.COUNTRY} selected={searchType === SearchTypes.COUNTRY} onClick={() => handleSearchTypeChange(SearchTypes.COUNTRY)} />
+                                <SelectionButton textValue={t('name')} selected={searchType === SearchTypes.NAME} onClick={() => handleSearchTypeChange(SearchTypes.NAME)} />
+                                <SelectionButton textValue={t('country')} selected={searchType === SearchTypes.COUNTRY} onClick={() => handleSearchTypeChange(SearchTypes.COUNTRY)} />
                             </SelectorContainer>
                         )}
 
@@ -132,19 +134,19 @@ const ConnectSection: React.FC = () => {
                         {userType === UserTypes.INFLUENCER && (
                             <>
                                 {searchType === SearchTypes.NAME && (
-                                    <AppTextField label="Name" variant="outlined" fullWidth value={name} onChange={handleNameChange} sx={{ mb: 2 }} />
+                                    <AppTextField label={t('name')} variant="outlined" fullWidth value={name} onChange={handleNameChange} sx={{ mb: 2 }} />
                                 )}
                                 {searchType === SearchTypes.COUNTRY && (
-                                    <AppTextField label="Country" variant="outlined" fullWidth value={country} onChange={handleCountryChange} sx={{ mb: 2 }} />
+                                    <AppTextField label={t('country')} variant="outlined" fullWidth value={country} onChange={handleCountryChange} sx={{ mb: 2 }} />
                                 )}
                             </>
                         )}
-                        {userType === UserTypes.BUSINESS && <AppTextField label="Country" variant="outlined" fullWidth value={country} onChange={handleCountryChange} sx={{ mb: 2 }} />}
+                        {userType === UserTypes.BUSINESS && <AppTextField label={t('country')} variant="outlined" fullWidth value={country} onChange={handleCountryChange} sx={{ mb: 2 }} />}
                         {/* Button for user action */}
                         <SearchButton backgroundColor={Colors.main.black} textColor={Colors.main.white}>
                             {userType === UserTypes.BUSINESS
-                                ? `Find by Country`
-                                : `Request by ${searchType}`}
+                                ? t('main_page.find_country')
+                                : searchType === SearchTypes.NAME ? t('main_page.request_name') : t('main_page.request_country')}
                         </SearchButton>
                     </Box>
                 </Grid>

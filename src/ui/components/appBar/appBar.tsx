@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from "@emotion/styled";
 import { AppBar, Box, Container, Hidden, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +5,7 @@ import { Colors } from "@theme/colors";
 import AppButton from "@components/appButton/appButton";
 import { PeerPromoteVariationTwo } from "@assets/logos/logos";
 import { MainRoutes } from "@data/enums/routeEnums";
+import { useTranslation } from 'react-i18next';
 
 /**
  * Styled component for the upper mobile toolbar.
@@ -28,25 +28,26 @@ const LowerMobileToolbar = styled(Toolbar)<{ center?: boolean }>(
 
 // Definition of main routes
 const mainRoutes = [
-    { name: 'Home', route: MainRoutes.HOME },
-    { name: 'Pricing', route: MainRoutes.PRICING },
-    { name: 'About Us', route: MainRoutes.ABOUT_US },
+    { name: 'home', route: MainRoutes.HOME },
+    { name: 'pricing', route: MainRoutes.PRICING },
+    { name: 'about_us', route: MainRoutes.ABOUT_US },
 ];
 
 /**
  * Navigation buttons component for the mobile app bar.
  */
-const NavigationButtons = ({ currentScreen, onClick }: { currentScreen?: string, onClick: (route: string) => void }) => {
+const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes, onClick: (route: string) => void }) => {
+    const { t } = useTranslation();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
             {/* Generate navigation buttons based on routes */}
             {mainRoutes.map(({ name, route }) => (
                 <AppButton
                     key={name}
-                    underLight={currentScreen === name}
+                    underLight={currentPath === route}
                     onClick={() => onClick(route)}
                 >
-                    {name}
+                    {t(name)}
                 </AppButton>
             ))}
         </Box>
@@ -56,8 +57,9 @@ const NavigationButtons = ({ currentScreen, onClick }: { currentScreen?: string,
 /**
  * Main mobile app bar component.
  */
-export const MainMobileAppBar = ({ currentScreen }: { currentScreen?: string }) => {
+export const MainMobileAppBar = ({ currentPath }: { currentPath?: MainRoutes }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     /**
      * Handle button click and navigate to the specified route.
@@ -86,22 +88,22 @@ export const MainMobileAppBar = ({ currentScreen }: { currentScreen?: string }) 
                     </Box>
                     {/* Navigation Buttons (Hidden on Medium and Larger Screens) */}
                     <Hidden mdDown>
-                        <NavigationButtons currentScreen={currentScreen} onClick={handleButtonClick} />
+                        <NavigationButtons currentPath={currentPath} onClick={handleButtonClick} />
                     </Hidden>
                     {/* Sign Up Button */}
-                    <AppButton round style={{ marginRight: '0.25rem' }}>
-                        Sign Up
+                    <AppButton onClick={() => { handleButtonClick(MainRoutes.SIGN_UP) }} round style={{ marginRight: '0.25rem' }}>
+                        {t('sign_up')}
                     </AppButton>
                     {/* Sign In Button */}
-                    <AppButton round backgroundColor={Colors.main.blue} textColor={Colors.main.white}>
-                        Sign In
+                    <AppButton onClick={() => { handleButtonClick(MainRoutes.SIGN_IN) }} round backgroundColor={Colors.main.blue} textColor={Colors.main.white}>
+                        {t('sign_in')}
                     </AppButton>
                 </UpperMobileToolbar>
                 {/* Lower Mobile Toolbar (Hidden on Medium Screens and Smaller) */}
                 <Hidden mdUp>
                     <LowerMobileToolbar>
                         {/* Navigation Buttons */}
-                        <NavigationButtons currentScreen={currentScreen} onClick={handleButtonClick} />
+                        <NavigationButtons currentPath={currentPath} onClick={handleButtonClick} />
                     </LowerMobileToolbar>
                 </Hidden>
             </Container>

@@ -1,0 +1,29 @@
+{
+    "about_us": "Nosotros",
+    "business": "Empresa",
+    "businesses": "Empresas",
+    "connect": "Conectar",
+    "contracts": "Contratos",
+    "followers": "Seguidores",
+    "home": "Inicio",
+    "influencer": "Influencer",
+    "influencers": "Influencers",
+    "name": "Nombre",
+    "pricing": "Precios",
+    "sign_in": "Acceder",
+    "sign_up": "Registro",
+    "country": "País",
+    "main_page": {
+        "business_look": "¿Buscas una empresa? ¡Explora emocionantes colaboraciones y asociaciones con empresas!",
+        "connect": "Conecta al influencer ideal",
+        "for_business": " para tu empresa.",
+        "influencer_look": "¿Buscas un Influencer? ¡Descubre los influencers perfectos para elevar tu marca!",
+        "find_country": "Encontrar por país",
+        "request_country": "Solicitar por país",
+        "request_name": "Solicitar por nombre",
+        "top_influencers": "Top influencers",
+        "trailblazer_prefix": "Pioneros",
+        "trailblazer_middle": "en la industria",
+        "trailblazer_suffix": ""
+    }
+}

@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
 import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
+import { useTranslation } from 'react-i18next';
 
 // Styled component for the circular image container
 const ImageContainer = styled(Box)({
@@ -37,6 +38,8 @@ const influencersData = [
  * Component displaying the top influencers section.
  */
 const TopInfluencersSection = () => {
+    const { t } = useTranslation();
+
     return (
         <Box sx={{ mt: 4, bgcolor: Colors.main.darkBlue, color: 'white', p: 2 }}>
             {/* Section Title */}
@@ -60,7 +63,7 @@ const TopInfluencersSection = () => {
                             </Typography>
                             {/* Contact Button */}
                             <ContactButton sx={{ mt: 1, mb: 2 }} variant="contained">
-                                Connect
+                                {t('connect')}
                             </ContactButton>
                         </Box>
                     </Grid>

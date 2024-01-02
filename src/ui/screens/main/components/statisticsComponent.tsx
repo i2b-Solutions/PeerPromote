@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
 import { DidactGothicFontSizes, PoppinsFontSizes } from "@theme/fontSizes";
+import { useTranslation } from "react-i18next";
 
 // Styled component for the StatisticsContainer
 const StatisticsContainer = styled(Grid)({
@@ -12,19 +13,19 @@ const StatisticsContainer = styled(Grid)({
 // Sample statistics data
 const statisticsData = [
     {
-        name: 'Influencers',
+        name: 'influencers',
         value: 300
     },
     {
-        name: 'Followers',
+        name: 'followers',
         value: 200
     },
     {
-        name: 'Business',
+        name: 'businesses',
         value: 300
     },
     {
-        name: 'Contracts',
+        name: 'contracts',
         value: 200
     }
 ];
@@ -33,15 +34,20 @@ const statisticsData = [
  * Statistics section component displaying industry statistics.
  */
 const StatisticsSection = () => {
+    const { t } = useTranslation();
+
     return (
         <StatisticsContainer container spacing={3}>
             <Grid item xs={12}>
                 {/* Title */}
+                <Typography variant="h4" fontWeight={700} color={Colors.main.darkBlue} style={{ flexGrow: 1 }}>
+                {t('main_page.trailblazer_prefix')}
+                </Typography>
                 <Typography variant="h4" color={Colors.main.darkBlue} style={{ flexGrow: 1 }}>
-                    We are industry
+                    {t('main_page.trailblazer_middle')}
                 </Typography>
                 <Typography variant="h4" fontWeight={700} color={Colors.main.darkBlue} style={{ flexGrow: 1, marginBottom: '2rem' }}>
-                    trailblazers
+                {t('main_page.trailblazer_suffix')}
                 </Typography>
             </Grid>
             {/* Displaying statistics */}
@@ -54,7 +60,7 @@ const StatisticsSection = () => {
                         </Typography>
                         {/* Statistic Name */}
                         <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.mediumGrey}>
-                            {data.name}
+                            {t(data.name)}
                         </Typography>
                     </Box>
                 </Grid>

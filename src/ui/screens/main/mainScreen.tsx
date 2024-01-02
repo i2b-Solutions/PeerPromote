@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
-import { MainMobileAppBar } from '../../components/appBar/appBar';
 import ConnectSection from './components/connectComponent';
 import StatisticsSection from './components/statisticsComponent';
 import TopInfluencersSection from './components/topInfluencersComponent';
@@ -16,9 +15,6 @@ export const TopInfluencesContainer = styled(Box)({
 const MainScreen = () => {
   return (
     <>
-      {/* App Bar */}
-      <MainMobileAppBar currentScreen='Home' />
-
       {/* Main Content */}
       <AppMainContainer>
 

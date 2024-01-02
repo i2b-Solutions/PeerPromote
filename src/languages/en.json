@@ -1,0 +1,29 @@
+{
+    "about_us": "About Us",
+    "business": "Business",
+    "businesses": "Businesses",
+    "connect": "Connect",
+    "contracts": "Contracts",
+    "followers": "Followers",
+    "home": "Home",
+    "influencer": "Influencer",
+    "influencers": "Influencers",
+    "name": "Name",
+    "pricing": "Pricing",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "country": "Country",
+    "main_page": {
+        "business_look": "Looking for a Business? Explore exciting collaborations and partnerships with businesses!",
+        "connect": "Connect the ideal influencer",
+        "for_business": " for your business.",
+        "influencer_look": "Looking for an Influencer? Discover the perfect influencers to elevate your brand!",
+        "find_country": "Find by country",
+        "request_country": "Request by country",
+        "request_name": "Request by Name",
+        "top_influencers": "Top Influencers",
+        "trailblazer_prefix": "",
+        "trailblazer_middle": "We are industry",
+        "trailblazer_suffix": "Trailblazers"
+    }
+}
