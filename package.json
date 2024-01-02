@@ -24,8 +24,8 @@
   "scripts": {
     "start": "dotenv -e .env.dev react-app-rewired start --host 0.0.0.0",
     "start-prod": "dotenv -e .env.prod react-app-rewired start --host 0.0.0.0",
-    "build-dev": "npm run replace-base-path-dev && dotenv -e .env.dev react-app-rewired build",
-    "build": "npm run replace-base-path-prod && dotenv -e .env.prod react-app-rewired build",
+    "build-dev": "dotenv -e .env.dev react-app-rewired build && npm run replace-base-path-dev",
+    "build": "dotenv -e .env.prod react-app-rewired build && npm run replace-base-path-prod",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "serve-dev": "npm run build:dev && serve -s build",
