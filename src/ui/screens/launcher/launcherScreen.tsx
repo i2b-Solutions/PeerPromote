@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Typography, FormControl, Select, MenuItem, Button, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { MainRoutes } from '@data/enums/routeEnums';
 
 // Styled component for the main container
 const MainContainer = styled(Container)({
@@ -51,9 +52,9 @@ const LauncherScreen = (): JSX.Element => {
                 <FormControl>
                     <Select value={selectedOption} onChange={(event) => handleChange(event.target.value)}>
                         {/* MenuItem for Main Page option */}
-                        <MenuItem value="/">Main Page</MenuItem>
+                        <MenuItem value={MainRoutes.HOME}>Main Page</MenuItem>
                         {/* MenuItem for Login option */}
-                        <MenuItem value="/login">Login</MenuItem>
+                        <MenuItem value={MainRoutes.SIGN_IN}>Login</MenuItem>
                     </Select>
                 </FormControl>
             </div>

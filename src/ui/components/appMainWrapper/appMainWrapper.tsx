@@ -9,7 +9,7 @@ const AppMainWrapper = ({ topBarPath, children }: { topBarPath?: MainRoutes, chi
     return (
         <>
             {/* Mobile App Bar */}
-            {topBarPath && <MainMobileAppBar currentPath={MainRoutes.HOME} />}
+            {topBarPath && <MainMobileAppBar currentPath={topBarPath} />}
             {/* Main Content */}
             {children}
             {/* Footer */}
