@@ -4,15 +4,18 @@
     "businesses": "Businesses",
     "connect": "Connect",
     "contracts": "Contracts",
+    "country": "Country",
+    "email": "Email",
     "followers": "Followers",
     "home": "Home",
     "influencer": "Influencer",
     "influencers": "Influencers",
     "name": "Name",
     "pricing": "Pricing",
+    "password": "Password",
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
-    "country": "Country",
+    "welcome_back": "Welcome Back",
     "main_page": {
         "business_look": "Looking for a Business? Explore exciting collaborations and partnerships with businesses!",
         "connect": "Connect the ideal influencer",
@@ -25,5 +28,11 @@
         "trailblazer_prefix": "",
         "trailblazer_middle": "We are industry",
         "trailblazer_suffix": "Trailblazers"
+    },
+    "sign_in_screen": {
+        "forgot_password": "Forgot password?",
+        "by_clicking": "By clicking \"Sign In,\" you are agreeing to the terms of PeerPromote - ",
+        "terms": "User Agreement, Privacy Policy, and Cookie Policy.",
+        "create_account": "Create new account"
     }
 }

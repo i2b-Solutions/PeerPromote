@@ -4,15 +4,18 @@
     "businesses": "Empresas",
     "connect": "Conectar",
     "contracts": "Contratos",
+    "country": "País",
+    "email": "Correo",
     "followers": "Seguidores",
     "home": "Inicio",
     "influencer": "Influencer",
     "influencers": "Influencers",
     "name": "Nombre",
     "pricing": "Precios",
+    "password": "Contraseña",
     "sign_in": "Acceder",
     "sign_up": "Registro",
-    "country": "País",
+    "welcome_back": "Bienvenido",
     "main_page": {
         "business_look": "¿Buscas una empresa? ¡Explora emocionantes colaboraciones y asociaciones con empresas!",
         "connect": "Conecta al influencer ideal",
@@ -25,5 +28,11 @@
         "trailblazer_prefix": "Pioneros",
         "trailblazer_middle": "en la industria",
         "trailblazer_suffix": ""
-    }
+    },
+    "sign_in_screen": {
+        "forgot_password": "¿Olvidaste tu contraseña?",
+        "by_clicking": "Al hacer clic en \"Acceder,\" aceptas los términos de PeerPromote - ",
+        "terms": "Acuerdo del Usuario, Política de Privacidad y Política de Cookies.",
+        "create_account": "Crear nueva cuenta"
+        }
 }
