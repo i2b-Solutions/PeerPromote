@@ -1,15 +1,16 @@
 {
-    "about_us": "About Us",
+    "about_us": "About",
     "business": "Business",
     "businesses": "Businesses",
     "connect": "Connect",
     "contracts": "Contracts",
     "country": "Country",
+    "continue": "Continue",
     "email": "Email",
     "followers": "Followers",
     "home": "Home",
-    "influencer": "Influencer",
-    "influencers": "Influencers",
+    "content_creator": "Content Creator",
+    "content_creators": "Content Creators",
     "name": "Name",
     "pricing": "Pricing",
     "password": "Password",
@@ -18,13 +19,13 @@
     "welcome_back": "Welcome Back",
     "main_page": {
         "business_look": "Looking for a Business? Explore exciting collaborations and partnerships with businesses!",
-        "connect": "Connect the ideal influencer",
+        "connect": "Connect the ideal content creator",
         "for_business": " for your business.",
-        "influencer_look": "Looking for an Influencer? Discover the perfect influencers to elevate your brand!",
+        "content_creator_look": "Looking for a content creator? Discover the perfect content creators to elevate your brand!",
         "find_country": "Find by country",
         "request_country": "Request by country",
         "request_name": "Request by name",
-        "top_influencers": "Top Influencers",
+        "top_content_creators": "Top Content Creators",
         "trailblazer_prefix": "",
         "trailblazer_middle": "We are industry",
         "trailblazer_suffix": "Trailblazers"
@@ -34,5 +35,8 @@
         "by_clicking": "By clicking \"Sign In,\" you are agreeing to the terms of PeerPromote - ",
         "terms": "User Agreement, Privacy Policy, and Cookie Policy.",
         "create_account": "Create new account"
+    },
+    "language_modal": {
+        "continue_in": "Continue in English?"
     }
 }
