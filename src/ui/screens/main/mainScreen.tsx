@@ -2,12 +2,12 @@ import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 import ConnectSection from './components/connectComponent';
 import StatisticsSection from './components/statisticsComponent';
-import TopInfluencersSection from './components/topInfluencersComponent';
 import { Colors } from '@theme/colors';
 import AppMainContainer from '@components/appMainContainer/appMainContainer';
+import TopContentCreatorsSection from './components/topContentCreatorsComponent';
 
-// Styled component for the top influencers container
-export const TopInfluencesContainer = styled(Box)({
+// Styled component for the top content creators container
+export const TopContentCreatorsContainer = styled(Box)({
     width: '100%',
     backgroundColor: Colors.main.darkBlue,
   });
@@ -26,12 +26,12 @@ const MainScreen = () => {
 
       </AppMainContainer>
 
-      {/* Top Influences Section */}
-      <TopInfluencesContainer>
+      {/* Top Content Creators Section */}
+      <TopContentCreatorsContainer>
         <AppMainContainer>
-          <TopInfluencersSection />
+          <TopContentCreatorsSection />
         </AppMainContainer>
-      </TopInfluencesContainer>
+      </TopContentCreatorsContainer>
     </>
   );
 };

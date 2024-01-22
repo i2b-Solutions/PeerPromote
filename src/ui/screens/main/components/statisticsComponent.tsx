@@ -13,7 +13,7 @@ const StatisticsContainer = styled(Grid)({
 // Sample statistics data
 const statisticsData = [
     {
-        name: 'influencers',
+        name: 'content_creators',
         value: 300
     },
     {

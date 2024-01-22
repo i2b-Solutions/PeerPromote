@@ -5,7 +5,7 @@ import { Colors } from '@theme/colors';
 import AppButton from '@components/appButton/appButton';
 import { UserTypes } from '@data/enums/userEnums';
 import AppTextField from '@components/appTextField/appTextField';
-import { InfluencerImage } from '@assets/images/images';
+import { ContentCreatorImage } from '@assets/images/images';
 import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 import { SearchTypes } from '@data/enums/searchEnums';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +63,7 @@ const SelectionButton: React.FC<{ textValue: string; selected: boolean; onClick:
  * Main Connect Section component with search functionality.
  */
 const ConnectSection: React.FC = () => {
-    const [userType, setUserType] = useState<UserTypes>(UserTypes.INFLUENCER);
+    const [userType, setUserType] = useState<UserTypes>(UserTypes.CONTENT_CREATOR);
     const [searchType, setSearchType] = useState<SearchTypes>(SearchTypes.NAME);
     const [name, setName] = useState<string>('');
     const [country, setCountry] = useState<string>('');
@@ -114,16 +114,16 @@ const ConnectSection: React.FC = () => {
                             {t('main_page.for_business')}
                         </Typography>
                         <Typography marginTop="2rem" marginBottom="2rem" variant="body1" color={Colors.main.darkBlue} sx={{ fontWeight: DidactGothicFontSizes.BOLD }}>
-                            {userType === UserTypes.INFLUENCER ? t('main_page.influencer_look') : t('main_page.business_look')}
+                            {userType === UserTypes.CONTENT_CREATOR ? t('main_page.content_creator_look') : t('main_page.business_look')}
                         </Typography>
                         {/* User Type Selector Buttons */}
                         <SelectorContainer>
-                            <SelectionButton textValue={t('influencer')} selected={userType === UserTypes.INFLUENCER} onClick={() => handleUserTypeChange(UserTypes.INFLUENCER)} />
+                            <SelectionButton textValue={t('content_creator')} selected={userType === UserTypes.CONTENT_CREATOR} onClick={() => handleUserTypeChange(UserTypes.CONTENT_CREATOR)} />
                             <SelectionButton textValue={t('business')} selected={userType === UserTypes.BUSINESS} onClick={() => handleUserTypeChange(UserTypes.BUSINESS)} />
                         </SelectorContainer>
 
                         {/* User Type Selector Buttons */}
-                        {userType === UserTypes.INFLUENCER && (
+                        {userType === UserTypes.CONTENT_CREATOR && (
                             <SelectorContainer>
                                 <SelectionButton textValue={t('name')} selected={searchType === SearchTypes.NAME} onClick={() => handleSearchTypeChange(SearchTypes.NAME)} />
                                 <SelectionButton textValue={t('country')} selected={searchType === SearchTypes.COUNTRY} onClick={() => handleSearchTypeChange(SearchTypes.COUNTRY)} />
@@ -131,7 +131,7 @@ const ConnectSection: React.FC = () => {
                         )}
 
                         {/* Additional fields based on user type */}
-                        {userType === UserTypes.INFLUENCER && (
+                        {userType === UserTypes.CONTENT_CREATOR && (
                             <>
                                 {searchType === SearchTypes.NAME && (
                                     <AppTextField label={t('name')} variant="outlined" fullWidth value={name} onChange={handleNameChange} sx={{ mb: 2 }} />
@@ -153,7 +153,7 @@ const ConnectSection: React.FC = () => {
 
                 {/* Right column (visible only on medium and larger screens) */}
                 <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'inherit' } }}>
-                    <img src={InfluencerImage} alt="Influencer" style={{ width: '100%', height: '28.5rem', objectFit: 'contain' }} />
+                    <img src={ContentCreatorImage} alt="Content creator" style={{ width: '100%', height: '28.5rem', objectFit: 'contain' }} />
                 </Grid>
             </Grid>
         </Container>

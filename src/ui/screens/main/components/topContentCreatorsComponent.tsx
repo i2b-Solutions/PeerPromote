@@ -24,8 +24,8 @@ const ContactButton = styled(AppButton)({
     borderRadius: '0.5rem'
 });
 
-// Sample data for top influencers
-const influencersData = [
+// Sample data for top content creators
+const contentCreatorsData = [
     { name: 'Maria', followers: '60M+' },
     { name: 'David', followers: '55M+' },
     { name: 'John', followers: '50M+' },
@@ -35,27 +35,27 @@ const influencersData = [
 ];
 
 /**
- * Component displaying the top influencers section.
+ * Component displaying the top content creators section.
  */
-const TopInfluencersSection = () => {
+const TopContentCreatorsSection = () => {
     const { t } = useTranslation();
 
     return (
         <Box sx={{ mt: 4, bgcolor: Colors.main.darkBlue, color: 'white', p: 2 }}>
             {/* Section Title */}
             <Typography variant="h4" fontWeight={PoppinsFontSizes.MEDIUM} color={Colors.main.white} sx={{ mt: 1, mb: 8, flexGrow: 1 }}>
-                Top Influencers
+                Top {t('content_creators')}
             </Typography>
-            {/* Grid of influencers */}
+            {/* Grid of content creators */}
             <Grid container spacing={2}>
-                {influencersData.map((item) => (
+                {contentCreatorsData.map((item) => (
                     <Grid item xs={6} md={4} lg={2} key={item.name}>
                         <Box>
                             {/* Circular Image Container */}
                             <ImageContainer>
-                                <img src={SelfieImage} alt="Influencer" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                <img src={SelfieImage} alt="Content creator" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                             </ImageContainer>
-                            {/* Influencer Name */}
+                            {/* Content Creator Name */}
                             <Typography variant="h6" color={Colors.main.white}>{item.name}</Typography>
                             {/* Followers Count */}
                             <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.lightBlue}>
@@ -73,4 +73,4 @@ const TopInfluencersSection = () => {
     );
 };
 
-export default TopInfluencersSection;
+export default TopContentCreatorsSection;

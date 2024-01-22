@@ -4,5 +4,5 @@
  * @enum {string}
  */export enum UserTypes {
     BUSINESS = 'Business',
-    INFLUENCER = 'Influencer'
+    CONTENT_CREATOR = 'Content Creator'
 }
