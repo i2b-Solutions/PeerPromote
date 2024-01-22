@@ -1,17 +1,12 @@
 export enum STATUS {
-    INITIAL,
-    OK,
-    LOADING,
-    ERROR
+    INITIAL = 'INITIAL',
+    OK = 'OK',
+    LOADING = 'LOADING',
+    ERROR = 'ERROR'
 }
 
-export type DataWrapper<T> = {
-    data?: T;
+export type Data<T> = {
+    data: T;
     status: STATUS;
     message: string;
-}
-
-export enum SYSTEM_LANGUAGES {
-    ES = 'es',
-    EN = 'en'
 }

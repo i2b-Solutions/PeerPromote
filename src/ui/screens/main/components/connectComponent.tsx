@@ -3,12 +3,12 @@ import { Typography, Container, Grid, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { Colors } from '@theme/colors';
 import AppButton from '@components/appButton/appButton';
-import { UserTypes } from '@data/enums/userEnums';
 import AppTextField from '@components/appTextField/appTextField';
 import { ContentCreatorImage } from '@assets/images/images';
 import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
-import { SearchTypes } from '@data/enums/searchEnums';
+import { SearchTypes } from '@ui/enums/searchEnums';
 import { useTranslation } from 'react-i18next';
+import { UserTypes } from '@ui/enums/userEnums';
 
 /**
  * Styled component for the SelectorContainer.

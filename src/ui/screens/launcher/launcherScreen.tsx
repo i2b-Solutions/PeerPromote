@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Typography, FormControl, Select, MenuItem, Button, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { MainRoutes } from '@data/enums/routeEnums';
+import { MainRoutes } from '@ui/enums/routeEnums';
 
 // Styled component for the main container
 const MainContainer = styled(Container)({

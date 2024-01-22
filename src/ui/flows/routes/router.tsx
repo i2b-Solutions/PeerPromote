@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Import the screens for your routes
 import AppMainWrapper from '@components/appMainWrapper/appMainWrapper';
-import { MainRoutes } from '@data/enums/routeEnums';
+import { MainRoutes } from '@ui/enums/routeEnums';
 import SignInScreen from '@ui/screens/sign_in/SignInScreen';
 import MainScreen from '@ui/screens/main/mainScreen';
 import LauncherScreen from '@ui/screens/launcher/launcherScreen';

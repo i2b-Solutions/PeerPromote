@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, SelectChangeEvent, ListItemIcon } from '@mui/material';
-import { SYSTEM_LANGUAGES } from '@domain/types/domainTypes';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useLanguageStore } from '@ui/stores/languageStore';
 import { useTranslation } from 'react-i18next';
 import { setStoredLanguage } from '@domain/controllers/languageController/languageController';
+import { SYSTEM_LANGUAGES } from '@domain/enums/domainEnums';
 
 const AppLanguageModal = () => {
     const { t, i18n } = useTranslation();

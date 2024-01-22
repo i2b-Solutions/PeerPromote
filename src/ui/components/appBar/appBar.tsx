@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Colors } from "@theme/colors";
 import AppButton from "@components/appButton/appButton";
 import { PeerPromoteVariationTwo } from "@assets/logos/logos";
-import { MainRoutes } from "@data/enums/routeEnums";
+import { MainRoutes } from "@ui/enums/routeEnums";
 import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useLanguageStore } from "@ui/stores/languageStore";

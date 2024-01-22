@@ -1,5 +1,5 @@
 import { MainMobileAppBar } from "@components/appBar/appBar";
-import { MainRoutes } from "@data/enums/routeEnums";
+import { MainRoutes } from "@ui/enums/routeEnums";
 import { ReactNode } from "react";
 
 /**

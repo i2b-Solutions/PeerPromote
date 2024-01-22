@@ -1,8 +1,10 @@
 import { getLocalStorageValue, setLocalStorageValue } from "@data/localStorage/localStorageManager";
+import { convertGetLocalStorageResponseToData, convertSetLocalStorageResponseToData } from "@domain/converters/localStorageConverters";
+import { SYSTEM_LANGUAGES } from "@domain/enums/domainEnums";
 import { LOCAL_STORAGE_KEYS } from "@domain/helpers/domainConstants";
-import { DataWrapper, STATUS, SYSTEM_LANGUAGES } from "@domain/types/domainTypes";
+import { Data, STATUS } from "@domain/types/domainTypes";
 
-export const getSystemLanguage = (): DataWrapper<SYSTEM_LANGUAGES> => {
+export const getSystemLanguage = (): Data<SYSTEM_LANGUAGES> => {
     let navigatorLanguage = navigator.language || '';
 
     if (navigatorLanguage.includes('-')) {
@@ -15,7 +17,7 @@ export const getSystemLanguage = (): DataWrapper<SYSTEM_LANGUAGES> => {
         return {
             message: 'Language not supported',
             status: STATUS.ERROR,
-            data: undefined
+            data: SYSTEM_LANGUAGES.EN
         }
     }
 
@@ -26,35 +28,8 @@ export const getSystemLanguage = (): DataWrapper<SYSTEM_LANGUAGES> => {
     }
 };
 
-export const getStoredLanguage = (): DataWrapper<SYSTEM_LANGUAGES> => {
-    try {
-        return {
-            status: STATUS.OK,
-            message: '',
-            data: getLocalStorageValue(LOCAL_STORAGE_KEYS.LANGUAGE)
-        }
-    } catch (error) {
-        return {
-            status: STATUS.ERROR,
-            message: typeof error === 'string' ? error : JSON.stringify(error),
-            data: undefined
-        }
-    }
-}
+export const getStoredLanguage = (): Data<SYSTEM_LANGUAGES> =>
+    convertGetLocalStorageResponseToData(getLocalStorageValue(LOCAL_STORAGE_KEYS.LANGUAGE));
 
-export const setStoredLanguage = (language: SYSTEM_LANGUAGES): DataWrapper<boolean> => {
-    try {
-        setLocalStorageValue(LOCAL_STORAGE_KEYS.LANGUAGE, language);
-        return {
-            status: STATUS.OK,
-            data: true,
-            message: ''
-        }
-    } catch (error) {
-        return {
-            status: STATUS.ERROR,
-            data: undefined,
-            message: typeof error === 'string' ? error : JSON.stringify(error)
-        }
-    }
-}
+export const setStoredLanguage = (language: SYSTEM_LANGUAGES): Data<boolean> =>
+    convertSetLocalStorageResponseToData(setLocalStorageValue(LOCAL_STORAGE_KEYS.LANGUAGE, language));
