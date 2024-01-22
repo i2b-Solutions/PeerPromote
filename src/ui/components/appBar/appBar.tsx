@@ -6,6 +6,8 @@ import AppButton from "@components/appButton/appButton";
 import { PeerPromoteVariationTwo } from "@assets/logos/logos";
 import { MainRoutes } from "@data/enums/routeEnums";
 import { useTranslation } from 'react-i18next';
+import LanguageIcon from '@mui/icons-material/Language';
+import { useLanguageStore } from "@ui/stores/languageStore";
 
 /**
  * Styled component for the upper mobile toolbar.
@@ -38,6 +40,7 @@ const mainRoutes = [
  */
 const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes, onClick: (route: string) => void }) => {
     const { t } = useTranslation();
+    const languageStore = useLanguageStore();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
             {/* Generate navigation buttons based on routes */}
@@ -50,6 +53,12 @@ const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes,
                     {t(name)}
                 </AppButton>
             ))}
+            <AppButton
+                onClick={() => { languageStore.setOpenLanguageModal(true) }}
+            >
+                <LanguageIcon sx={{ fontSize: '1.25rem', color: Colors.main.blue, mr: '0.2rem' }} />
+                {languageStore.language.toUpperCase()}
+            </AppButton>
         </Box>
     )
 }

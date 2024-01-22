@@ -53,8 +53,10 @@ const LauncherScreen = (): JSX.Element => {
                     <Select value={selectedOption} onChange={(event) => handleChange(event.target.value)}>
                         {/* MenuItem for Main Page option */}
                         <MenuItem value={MainRoutes.HOME}>Main Page</MenuItem>
-                        {/* MenuItem for Login option */}
-                        <MenuItem value={MainRoutes.SIGN_IN}>Login</MenuItem>
+                        {/* MenuItem for Sign In option */}
+                        <MenuItem value={MainRoutes.SIGN_IN}>Sign In</MenuItem>
+                        {/* MenuItem for Sign Up option */}
+                        <MenuItem value={MainRoutes.SIGN_UP}>Sign Up</MenuItem>
                     </Select>
                 </FormControl>
             </div>
