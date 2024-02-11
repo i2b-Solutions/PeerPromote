@@ -6,8 +6,9 @@ import { create } from 'zustand';
 type LanguageStore = {
     language: SYSTEM_LANGUAGES;
     openLanguageModal: boolean;
+    userTrigger: boolean;
     setLanguage: (newLanguage: SYSTEM_LANGUAGES) => void;
-    setOpenLanguageModal: (open: boolean) => void;
+    setOpenLanguageModal: (open: boolean, userTrigger?: boolean) => void;
 };
 
 export const useLanguageStore = create<LanguageStore>((set) => {
@@ -20,7 +21,13 @@ export const useLanguageStore = create<LanguageStore>((set) => {
     return {
         language: currentLanguage,
         openLanguageModal: storedLanguage.status !== STATUS.OK,
+        userTrigger: false,
         setLanguage: (newLanguage: SYSTEM_LANGUAGES) => set({ language: newLanguage }),
-        setOpenLanguageModal: (open: boolean) => set({ openLanguageModal: open }),
+        setOpenLanguageModal: (open: boolean, trigger: boolean = false) => {
+            set({
+                openLanguageModal: open,
+                ...(trigger && { userTrigger: trigger }),
+            });
+        },
     };
 });

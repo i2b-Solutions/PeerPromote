@@ -118,7 +118,7 @@ const ConnectSection: React.FC = () => {
                         </Typography>
                         {/* User Type Selector Buttons */}
                         <SelectorContainer>
-                            <SelectionButton textValue={t('content_creator')} selected={userType === UserTypes.CONTENT_CREATOR} onClick={() => handleUserTypeChange(UserTypes.CONTENT_CREATOR)} />
+                            <SelectionButton textValue={t('creator')} selected={userType === UserTypes.CONTENT_CREATOR} onClick={() => handleUserTypeChange(UserTypes.CONTENT_CREATOR)} />
                             <SelectionButton textValue={t('business')} selected={userType === UserTypes.BUSINESS} onClick={() => handleUserTypeChange(UserTypes.BUSINESS)} />
                         </SelectorContainer>
 

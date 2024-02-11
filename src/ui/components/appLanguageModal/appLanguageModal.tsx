@@ -5,6 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { setStoredLanguage } from '@domain/controllers/languageController/languageController';
 import { SYSTEM_LANGUAGES } from '@domain/enums/domainEnums';
 
+const supportedLanguages = [
+    { name: 'English', id: SYSTEM_LANGUAGES.EN },
+    { name: 'Español', id: SYSTEM_LANGUAGES.ES },
+]
+
 const AppLanguageModal = () => {
     const { t, i18n } = useTranslation();
     const languageStore = useLanguageStore();
@@ -21,22 +26,23 @@ const AppLanguageModal = () => {
 
     return (
         <Dialog open={languageStore.openLanguageModal} fullWidth maxWidth="xs" sx={{ backdropFilter: 'blur(5px)' }}>
-            <DialogTitle>{t('language_modal.continue_in')}</DialogTitle>
+            <DialogTitle>{languageStore.userTrigger ? t('language') : t('language_modal.continue_in')}</DialogTitle>
             <DialogContent>
                 <Select sx={{ '& .MuiSelect-select': { display: 'flex', alignItems: 'center' } }}
                     value={languageStore.language} onChange={handleLanguageChange} fullWidth>
-                    <MenuItem value={SYSTEM_LANGUAGES.EN}>
-                        <ListItemIcon>
-                            <LanguageIcon />
-                        </ListItemIcon>English</MenuItem>
-                    <MenuItem value={SYSTEM_LANGUAGES.ES}>
-                        <ListItemIcon>
-                            <LanguageIcon />
-                        </ListItemIcon>Español</MenuItem>
+                    {supportedLanguages.map((language) => {
+                        return (
+                            <MenuItem value={language.id} key={language.id}>
+                                <ListItemIcon>
+                                    <LanguageIcon />
+                                </ListItemIcon>{language.name}
+                            </MenuItem>
+                        )
+                    })}
                 </Select>
             </DialogContent>
             <DialogActions>
-                <Button sx={{textTransform: 'none'}} onClick={handleContinue} color="primary">
+                <Button sx={{ textTransform: 'none' }} onClick={handleContinue} color="primary">
                     {t('continue')}
                 </Button>
             </DialogActions>

@@ -9,6 +9,7 @@
     "email": "Email",
     "followers": "Followers",
     "home": "Home",
+    "creator": "Creator",
     "content_creator": "Content Creator",
     "content_creators": "Content Creators",
     "name": "Name",
@@ -17,6 +18,9 @@
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
     "welcome_back": "Welcome Back",
+    "language": "Language",
+    "back": "Back",
+    "next": "Next",
     "main_page": {
         "business_look": "Looking for a Business? Explore exciting collaborations and partnerships with businesses!",
         "connect": "Connect the ideal content creator",

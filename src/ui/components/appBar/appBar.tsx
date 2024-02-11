@@ -54,7 +54,7 @@ const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes,
                 </AppButton>
             ))}
             <AppButton
-                onClick={() => { languageStore.setOpenLanguageModal(true) }}
+                onClick={() => { languageStore.setOpenLanguageModal(true, true) }}
             >
                 <LanguageIcon sx={{ fontSize: '1.25rem', color: Colors.main.blue, mr: '0.2rem' }} />
                 {languageStore.language.toUpperCase()}

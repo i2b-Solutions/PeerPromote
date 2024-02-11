@@ -1,7 +1,6 @@
 import { getLocalStorageValue, setLocalStorageValue } from "@data/localStorage/localStorageManager";
 import { convertGetLocalStorageResponseToData, convertSetLocalStorageResponseToData } from "@domain/converters/localStorageConverters";
-import { SYSTEM_LANGUAGES } from "@domain/enums/domainEnums";
-import { LOCAL_STORAGE_KEYS } from "@domain/helpers/domainConstants";
+import { LOCAL_STORAGE_KEYS, SYSTEM_LANGUAGES } from "@domain/enums/domainEnums";
 import { Data, STATUS } from "@domain/types/domainTypes";
 
 export const getSystemLanguage = (): Data<SYSTEM_LANGUAGES> => {

@@ -1,58 +1,79 @@
-import AppButton from "@components/appButton/appButton";
-import AppClickableText from "@components/appClickableText/appClickableText";
-import AppTextField from "@components/appTextField/appTextField";
-import styled from "@emotion/styled";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { Colors } from "@theme/colors";
-import { DidactGothicFontSizes, PoppinsFontSizes } from "@theme/fontSizes";
-import { useTranslation } from "react-i18next";
+import { useState } from 'react';
+import { Container, Grid, Slide } from '@mui/material';
+import AppButton from '@components/appButton/appButton';
+import styled from '@emotion/styled';
+import { useTranslation } from 'react-i18next';
+import WelcomeFlowScreen from './flow/welcomeFlowScreen';
+import UserFlowScreen from './flow/userFlowScreen';
+import ContactFlowScreen from './flow/contactFlowScreen';
+import ReviewFlowScreen from './flow/reviewFlowScreen';
 
-/**
- * Styled component for the sign-in button.
- */
-const SignInButton = styled(AppButton)({
+const NavigationButton = styled(AppButton)({
     width: '100%',
     padding: '1rem',
     borderRadius: '0.4rem',
-    marginTop: '1rem'
+    marginTop: '1rem',
 });
 
-// SignInScreen component for rendering the sign-in screen
+const totalScreens = 4;
+
+const SlideWrapper = ({ slideKey, children }: {
+    slideKey: string;
+    children: React.ReactElement<any, any>;
+}) => {
+    return (
+        <Slide key={slideKey} direction="up" in mountOnEnter unmountOnExit timeout={400}>
+            <Container sx={{ padding: 0 }}>
+                {children}
+            </Container>
+        </Slide>
+    );
+}
+
+const GenerateSlide = ({ component, key }: { component: JSX.Element, key: string }) => {
+    return (
+        <SlideWrapper slideKey={key}>
+            {component}
+        </SlideWrapper>
+    )
+}
+
+const ScreenNavigator = ({ screen, onBack, onNext }: { screen: number, onBack: () => void, onNext: () => void }) => {
+    switch (screen) {
+        case 1:
+            return <GenerateSlide key='welcome-slide' component={<WelcomeFlowScreen onNext={onNext} />} />
+        case 2:
+            return <GenerateSlide key='user-slide' component={<UserFlowScreen onNext={onNext} onBack={onBack} />} />
+        case 3:
+            return <GenerateSlide key='contact-slide' component={<ContactFlowScreen onNext={onNext} onBack={onBack} />} />
+        case 4:
+            return <GenerateSlide key='review-slide' component={<ReviewFlowScreen onNext={onNext} onBack={onBack} />} />
+        default:
+            return <></>;
+    }
+};
+
 const SignUpScreen = () => {
-    const { t } = useTranslation(); // Translation hook
+    const { t } = useTranslation();
+    const [currentScreen, setCurrentScreen] = useState(1);
+
+    const goToNextScreen = () => {
+        setCurrentScreen((prevScreen) => (prevScreen < totalScreens ? prevScreen + 1 : 1));
+    };
+
+    const goToPreviousScreen = () => {
+        setCurrentScreen((prevScreen) => (prevScreen > 1 ? prevScreen - 1 : totalScreens));
+    };
 
     return (
         <Container sx={{ mt: 4 }}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} md={6} sx={{ textAlign: 'center', marginX: 'auto' }}>
-                    {/* Email input field */}
-                    <AppTextField label={t('email')} variant="outlined" fullWidth onChange={() => { }} sx={{ mb: 2 }} />
-
-                    {/* Password input field */}
-                    <AppTextField label={t('password')} variant="outlined" fullWidth onChange={() => { }} sx={{ mb: 2 }} />
-
-                    {/* Forgot password link */}
-                    <AppClickableText text={t('sign_in_screen.forgot_password')} onClick={() => { }} />
-
-                    {/* Sign-in button */}
-                    <SignInButton backgroundColor={Colors.main.black} textColor={Colors.main.white}>
-                        {t('sign_in')}
-                    </SignInButton>
-
-                    {/* Informational text with terms link */}
-                    <Typography variant="body2" color={Colors.main.darkBlue} sx={{ fontWeight: DidactGothicFontSizes.BOLD, mt: '1rem' }}>
-                        {t('sign_in_screen.by_clicking')}
-                        <AppClickableText onClick={() => { }} text={t('sign_in_screen.terms')} />
-                    </Typography>
-
-                    {/* Create account button */}
-                    <SignInButton backgroundColor={Colors.main.blue} textColor={Colors.main.white} sx={{ mt: '2rem' }}>
-                        {t('sign_in_screen.create_account')}
-                    </SignInButton>
+            <Grid container>
+                <Grid item xs={12} md={6} sx={{ textAlign: 'center', paddingBottom: '1rem' }}>
+                    <ScreenNavigator screen={currentScreen} onBack={goToPreviousScreen} onNext={goToNextScreen} />
                 </Grid>
             </Grid>
         </Container>
     );
-}
+};
 
 export default SignUpScreen;
