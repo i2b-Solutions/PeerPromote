@@ -4,7 +4,7 @@ import AppTextField from "@components/appTextField/appTextField";
 import styled from "@emotion/styled";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
-import { DidactGothicFontSizes, PoppinsFontSizes } from "@theme/fontSizes";
+import { PoppinsFontWeights } from "@theme/fontWeights";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -14,7 +14,8 @@ const SignInButton = styled(AppButton)({
     width: '100%',
     padding: '1rem',
     borderRadius: '0.4rem',
-    marginTop: '1rem'
+    marginTop: '1rem',
+    color: Colors.main.white
 });
 
 // SignInScreen component for rendering the sign-in screen
@@ -25,6 +26,10 @@ const SignInScreen = () => {
         <Container sx={{ mt: 4 }}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={5} sx={{ textAlign: "center" }}>
+                    <Typography variant="h5" fontWeight={PoppinsFontWeights.SEMIBOLD} color={Colors.main.blue} sx={{ mb: '2.5rem' }}>
+                        {'Bienvenido a PeerPromote'}
+                    </Typography>
+
                     {/* Email input field */}
                     <AppTextField label={t('email')} variant="outlined" fullWidth onChange={() => { }} sx={{ mb: 2 }} />
 
@@ -35,18 +40,18 @@ const SignInScreen = () => {
                     <AppClickableText text={t('sign_in_screen.forgot_password')} onClick={() => { }} />
 
                     {/* Sign-in button */}
-                    <SignInButton backgroundColor={Colors.main.black} textColor={Colors.main.white}>
+                    <SignInButton backgroundColor={Colors.main.black}>
                         {t('sign_in')}
                     </SignInButton>
 
                     {/* Informational text with terms link */}
-                    <Typography variant="body2" color={Colors.main.darkBlue} sx={{ fontWeight: DidactGothicFontSizes.BOLD, mt: '1rem' }}>
+                    <Typography variant="body2" color={Colors.main.darkBlue} sx={{ fontWeight: PoppinsFontWeights.REGULAR, mt: '1rem' }}>
                         {t('sign_in_screen.by_clicking')}
                         <AppClickableText onClick={() => { }} text={t('sign_in_screen.terms')} />
                     </Typography>
 
                     {/* Create account button */}
-                    <SignInButton backgroundColor={Colors.main.blue} textColor={Colors.main.white} sx={{ mt: '2rem' }}>
+                    <SignInButton backgroundColor={Colors.main.blue} sx={{ mt: '2rem' }}>
                         {t('sign_in_screen.create_account')}
                     </SignInButton>
                 </Grid>

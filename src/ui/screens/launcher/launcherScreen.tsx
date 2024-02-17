@@ -36,9 +36,6 @@ const LauncherScreen = (): JSX.Element => {
     const handleLaunchScreen = () => {
         // Navigate to the selected screen
         navigate(selectedOption);
-
-        // Log a message after initiating navigation
-        console.log(`Launching ${selectedOption} screen...`);
     };
 
     return (

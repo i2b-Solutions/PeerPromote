@@ -5,10 +5,10 @@ import { Colors } from '@theme/colors';
 import AppButton from '@components/appButton/appButton';
 import AppTextField from '@components/appTextField/appTextField';
 import { ContentCreatorImage } from '@assets/images/images';
-import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 import { SearchTypes } from '@ui/enums/searchEnums';
 import { useTranslation } from 'react-i18next';
 import { UserTypes } from '@ui/enums/userEnums';
+import { PoppinsFontWeights } from '@theme/fontWeights';
 
 /**
  * Styled component for the SelectorContainer.
@@ -50,7 +50,9 @@ const SearchButton = styled(AppButton)({
 const SelectionButton: React.FC<{ textValue: string; selected: boolean; onClick: () => void }> = ({ textValue, selected, onClick }) => {
     return (
         <UserTypeButton
-            textColor={selected ? Colors.main.white : Colors.main.mediumGrey}
+            sx={{
+                color: selected ? Colors.main.white : Colors.main.mediumGrey
+            }}
             backgroundColor={selected ? Colors.main.blue : Colors.main.lightGrey}
             onClick={onClick}
         >
@@ -110,10 +112,10 @@ const ConnectSection: React.FC = () => {
                         <Typography variant="h4" color={Colors.main.blue}>
                             {t('main_page.connect')}
                         </Typography>
-                        <Typography fontWeight={PoppinsFontSizes.BOLD} variant="h4" color={Colors.main.blue}>
+                        <Typography fontWeight={PoppinsFontWeights.BOLD} variant="h4" color={Colors.main.blue}>
                             {t('main_page.for_business')}
                         </Typography>
-                        <Typography marginTop="2rem" marginBottom="2rem" variant="body1" color={Colors.main.darkBlue} sx={{ fontWeight: DidactGothicFontSizes.BOLD }}>
+                        <Typography marginTop="2rem" marginBottom="2rem" variant="body1" color={Colors.main.darkBlue} sx={{ fontWeight: PoppinsFontWeights.REGULAR }}>
                             {userType === UserTypes.CONTENT_CREATOR ? t('main_page.content_creator_look') : t('main_page.business_look')}
                         </Typography>
                         {/* User Type Selector Buttons */}
@@ -143,7 +145,7 @@ const ConnectSection: React.FC = () => {
                         )}
                         {userType === UserTypes.BUSINESS && <AppTextField label={t('country')} variant="outlined" fullWidth value={country} onChange={handleCountryChange} sx={{ mb: 2 }} />}
                         {/* Button for user action */}
-                        <SearchButton backgroundColor={Colors.main.black} textColor={Colors.main.white}>
+                        <SearchButton sx={{backgroundColor: Colors.main.black, color: Colors.main.white }}>
                             {userType === UserTypes.BUSINESS
                                 ? t('main_page.find_country')
                                 : searchType === SearchTypes.NAME ? t('main_page.request_name') : t('main_page.request_country')}

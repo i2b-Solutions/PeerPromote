@@ -1,42 +1,66 @@
-import { getStoredLanguage, getSystemLanguage } from '@domain/controllers/languageController/languageController';
-import { SUPPORTED_LANGUAGES, SYSTEM_LANGUAGES } from '@domain/enums/domainEnums';
-import { STATUS } from '@domain/types/domainTypes';
+import { SUPPORTED_LANGUAGE } from '@domain/types/domainTypes';
 import { create } from 'zustand';
 
 type RegistrationStore = {
+    // Step 1
     username: string;
     password: string;
+    confirmPassword: string;
     countryId: string;
     stateId: string;
-    languages: SUPPORTED_LANGUAGES[];
-    birthdate: {day: number | undefined, month: number | undefined, year: number | undefined};
+    languages: SUPPORTED_LANGUAGE[];
+    birthdate: {day: number , month: number, year: number};
+    // Step 2
+    email: string;
+    area: string;
+    phone: string;
+    selfie: File | undefined;
+    // Setters
     setUsername: (value:string) => void;
     setPassword: (value:string) => void;
+    setConfirmPassword: (value: string) => void;
     setCountryId: (value:string) => void;
     setStateId: (value:string) => void;
-    setLanguages: (values: SUPPORTED_LANGUAGES[]) => void;
+    setLanguages: (values: SUPPORTED_LANGUAGE[]) => void;
     setBirthDay: (value: number) => void;
     setBirthMonth: (value: number) => void;
     setBirthYear: (value: number) => void;
+    setEmail: (value: string) => void;
+    setArea: (value: string) => void;
+    setPhone: (value: string) => void;
+    setSelfie: (value: File | undefined) => void;
 };
 
-export const useRegistrationStore = create<RegistrationStore>((set) => {
+const useRegistrationStore = create<RegistrationStore>((set) => {
     return {
+        // Step 1
         username: "",
         password: "",
+        confirmPassword: "",
         countryId: "",
         stateId: "",
         languages: [],
-        birthdate: {day: undefined, month: undefined, year: undefined},
+        birthdate: {day: 0, month: 0, year: 0},
+        // Step 2
+        email: "",
+        area: "",
+        phone: "",
+        selfie: undefined,
+        // Setters
         setUsername: (value: string) => set({username: value}),
         setPassword: (value: string) => set({password: value}),
+        setConfirmPassword: (value: string) => set({confirmPassword: value}),
         setCountryId: (value: string) => set({countryId: value}),
         setStateId: (value: string) => set({stateId: value}),
-        setLanguages: (values: SUPPORTED_LANGUAGES[]) => set({languages: values}),
+        setLanguages: (values: SUPPORTED_LANGUAGE[]) => set({languages: values}),
         setBirthDay: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, day: value } })),
         setBirthMonth: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, month: value } })),
-        setBirthYear: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, year: value } }))
+        setBirthYear: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, year: value } })),
+        setEmail: (value: string) => set({email: value}),
+        setArea: (value: string) => set({area: value}),
+        setPhone: (value: string) => set({phone: value}),
+        setSelfie: (value: File | undefined) => set({selfie: value})
     };
 });
 
-export default null;
+export default useRegistrationStore;

@@ -1,11 +1,10 @@
-import React from 'react';
 import { SelfieImage } from "@assets/images/images";
 import AppButton from "@components/appButton/appButton";
 import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
-import { DidactGothicFontSizes, PoppinsFontSizes } from '@theme/fontSizes';
 import { useTranslation } from 'react-i18next';
+import { PoppinsFontWeights } from '@theme/fontWeights';
 
 // Styled component for the circular image container
 const ImageContainer = styled(Box)({
@@ -21,7 +20,10 @@ const ImageContainer = styled(Box)({
 
 // Styled component for the contact button
 const ContactButton = styled(AppButton)({
-    borderRadius: '0.5rem'
+    borderRadius: '0.5rem',
+    color: Colors.main.darkBlue,
+    paddingTop: '0.25rem',
+    paddingBottom: '0.25rem'
 });
 
 // Sample data for top content creators
@@ -43,7 +45,7 @@ const TopContentCreatorsSection = () => {
     return (
         <Box sx={{ mt: 4, bgcolor: Colors.main.darkBlue, color: 'white', p: 2 }}>
             {/* Section Title */}
-            <Typography variant="h4" fontWeight={PoppinsFontSizes.MEDIUM} color={Colors.main.white} sx={{ mt: 1, mb: 8, flexGrow: 1 }}>
+            <Typography variant="h4" fontWeight={PoppinsFontWeights.MEDIUM} color={Colors.main.white} sx={{ mt: 1, mb: 8, flexGrow: 1 }}>
                 Top {t('content_creators')}
             </Typography>
             {/* Grid of content creators */}
@@ -58,7 +60,7 @@ const TopContentCreatorsSection = () => {
                             {/* Content Creator Name */}
                             <Typography variant="h6" color={Colors.main.white}>{item.name}</Typography>
                             {/* Followers Count */}
-                            <Typography variant="body1" fontWeight={DidactGothicFontSizes.BOLD} color={Colors.main.lightBlue}>
+                            <Typography variant="body1" fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.lightBlue}>
                                 {item.followers}
                             </Typography>
                             {/* Contact Button */}

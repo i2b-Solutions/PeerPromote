@@ -8,6 +8,7 @@ import { MainRoutes } from "@ui/enums/routeEnums";
 import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useLanguageStore } from "@ui/stores/languageStore";
+import AppPillButton from "@components/appButton/pillButton";
 
 /**
  * Styled component for the upper mobile toolbar.
@@ -46,8 +47,9 @@ const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes,
             {/* Generate navigation buttons based on routes */}
             {mainRoutes.map(({ name, route }) => (
                 <AppButton
+                    sx={{color: Colors.main.black}}
                     key={name}
-                    underLight={currentPath === route}
+                    underlight={currentPath === route}
                     onClick={() => onClick(route)}
                 >
                     {t(name)}
@@ -55,6 +57,7 @@ const NavigationButtons = ({ currentPath, onClick }: { currentPath?: MainRoutes,
             ))}
             <AppButton
                 onClick={() => { languageStore.setOpenLanguageModal(true, true) }}
+                sx={{color: Colors.main.black}}
             >
                 <LanguageIcon sx={{ fontSize: '1.25rem', color: Colors.main.blue, mr: '0.2rem' }} />
                 {languageStore.language.toUpperCase()}
@@ -100,13 +103,13 @@ export const MainMobileAppBar = ({ currentPath }: { currentPath?: MainRoutes }) 
                         <NavigationButtons currentPath={currentPath} onClick={handleButtonClick} />
                     </Hidden>
                     {/* Sign Up Button */}
-                    <AppButton onClick={() => { handleButtonClick(MainRoutes.SIGN_UP) }} round style={{ marginRight: '0.25rem' }}>
+                    <AppPillButton variation="clear" onClick={() => { handleButtonClick(MainRoutes.SIGN_UP) }} sx={{ marginRight: '0.25rem' }}>
                         {t('sign_up')}
-                    </AppButton>
+                    </AppPillButton>
                     {/* Sign In Button */}
-                    <AppButton onClick={() => { handleButtonClick(MainRoutes.SIGN_IN) }} round backgroundColor={Colors.main.blue} textColor={Colors.main.white}>
+                    <AppPillButton onClick={() => { handleButtonClick(MainRoutes.SIGN_IN) }}>
                         {t('sign_in')}
-                    </AppButton>
+                    </AppPillButton>
                 </UpperMobileToolbar>
                 {/* Lower Mobile Toolbar (Hidden on Medium Screens and Smaller) */}
                 <Hidden mdUp>

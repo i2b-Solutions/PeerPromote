@@ -7,10 +7,16 @@ type SquareButtonVariation = 'fill' | 'outline';
 
 type AppSquareButtonProps = {
     palette?: SquareButtonPalette,
-    variation?: SquareButtonVariation
+    variation?: SquareButtonVariation,
+    disabled?: boolean
 }
 
-const getStyle = (palette: SquareButtonPalette, variation: SquareButtonVariation) => {
+const getStyle = (palette: SquareButtonPalette, variation: SquareButtonVariation, disabled: boolean) => {
+
+    if (disabled) return {
+        backgroundColor: Colors.main.lightGrey,
+        borderColor: Colors.main.lightGrey
+    }
 
     if (palette === "secondary" && variation === "fill") {
         return {
@@ -40,11 +46,11 @@ const getStyle = (palette: SquareButtonPalette, variation: SquareButtonVariation
     return {};
 }
 
-const AppSquareButton = styled(Button)(({ palette = 'secondary', variation = 'fill' }: AppSquareButtonProps) => ({
+const AppSquareButton = styled(Button)(({ palette = 'secondary', variation = 'fill', disabled = false }: AppSquareButtonProps) => ({
     width: '100%',
     border: '0.2rem solid',
     transition: 'opacity 0.3s ease',
-    ...getStyle(palette, variation)
+    ...getStyle(palette, variation, disabled)
 }));
 
 export default AppSquareButton;

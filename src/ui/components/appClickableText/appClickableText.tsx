@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Colors } from "@theme/colors";
-import { DidactGothicFontSizes } from "@theme/fontSizes";
+import { PoppinsFontWeights } from '@theme/fontWeights';
 
 // Define the properties for the AppClickableText component
 interface AppClickableTextProps {
@@ -14,7 +14,7 @@ const AppClickableText: React.FC<AppClickableTextProps> = ({ text, onClick }) =>
     return (
         <Typography
             variant="body2"
-            fontWeight={DidactGothicFontSizes.BOLD}
+            fontWeight={PoppinsFontWeights.MEDIUM}
             color={Colors.main.blue}
             component="a"
             onClick={onClick}

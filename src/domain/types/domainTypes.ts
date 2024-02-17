@@ -10,3 +10,8 @@ export type Data<T> = {
     status: STATUS;
     message: string;
 }
+
+export type SUPPORTED_LANGUAGE = {
+    id: string;
+    name: string;
+}

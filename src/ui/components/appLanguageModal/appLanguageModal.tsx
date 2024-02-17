@@ -4,11 +4,7 @@ import { useLanguageStore } from '@ui/stores/languageStore';
 import { useTranslation } from 'react-i18next';
 import { setStoredLanguage } from '@domain/controllers/languageController/languageController';
 import { SYSTEM_LANGUAGES } from '@domain/enums/domainEnums';
-
-const supportedLanguages = [
-    { name: 'English', id: SYSTEM_LANGUAGES.EN },
-    { name: 'Español', id: SYSTEM_LANGUAGES.ES },
-]
+import { SUPPORTED_LANGUAGES } from '@domain/constants/domainConstants';
 
 const AppLanguageModal = () => {
     const { t, i18n } = useTranslation();
@@ -30,12 +26,13 @@ const AppLanguageModal = () => {
             <DialogContent>
                 <Select sx={{ '& .MuiSelect-select': { display: 'flex', alignItems: 'center' } }}
                     value={languageStore.language} onChange={handleLanguageChange} fullWidth>
-                    {supportedLanguages.map((language) => {
+                    {SUPPORTED_LANGUAGES.map((language) => {
                         return (
                             <MenuItem value={language.id} key={language.id}>
                                 <ListItemIcon>
                                     <LanguageIcon />
-                                </ListItemIcon>{language.name}
+                                </ListItemIcon>
+                                {language.name}
                             </MenuItem>
                         )
                     })}

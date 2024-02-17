@@ -13,7 +13,7 @@ export const AppMuiTheme = createTheme({
     h4: { fontFamily: 'Poppins, sans-serif' },
     h5: { fontFamily: 'Poppins, sans-serif' },
     h6: { fontFamily: 'Poppins, sans-serif' },
-    body1: { fontFamily: '"Poppins", sans-serif', fontSize: '1rem', fontWeight: 300 },
+    body1: { fontFamily: '"Poppins", sans-serif', fontSize: '1rem' },
     body2: { fontFamily: '"Poppins", sans-serif', fontSize: '0.9rem' },
     caption: { fontFamily: '"Poppins", sans-serif' },
     button: { fontFamily: 'Poppins, sans-serif', fontSize: '1rem' },

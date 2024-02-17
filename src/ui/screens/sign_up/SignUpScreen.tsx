@@ -1,19 +1,10 @@
 import { useState } from 'react';
 import { Container, Grid, Slide } from '@mui/material';
-import AppButton from '@components/appButton/appButton';
-import styled from '@emotion/styled';
-import { useTranslation } from 'react-i18next';
 import WelcomeFlowScreen from './flow/welcomeFlowScreen';
 import UserFlowScreen from './flow/userFlowScreen';
 import ContactFlowScreen from './flow/contactFlowScreen';
 import ReviewFlowScreen from './flow/reviewFlowScreen';
-
-const NavigationButton = styled(AppButton)({
-    width: '100%',
-    padding: '1rem',
-    borderRadius: '0.4rem',
-    marginTop: '1rem',
-});
+import useRegistrationStore from '@ui/stores/registrationStore';
 
 const totalScreens = 4;
 
@@ -30,9 +21,9 @@ const SlideWrapper = ({ slideKey, children }: {
     );
 }
 
-const GenerateSlide = ({ component, key }: { component: JSX.Element, key: string }) => {
+const GenerateSlide = ({ component, slideKey }: { component: JSX.Element, slideKey: string }) => {
     return (
-        <SlideWrapper slideKey={key}>
+        <SlideWrapper slideKey={slideKey}>
             {component}
         </SlideWrapper>
     )
@@ -41,24 +32,30 @@ const GenerateSlide = ({ component, key }: { component: JSX.Element, key: string
 const ScreenNavigator = ({ screen, onBack, onNext }: { screen: number, onBack: () => void, onNext: () => void }) => {
     switch (screen) {
         case 1:
-            return <GenerateSlide key='welcome-slide' component={<WelcomeFlowScreen onNext={onNext} />} />
+            return <GenerateSlide slideKey='welcome-slide' component={<WelcomeFlowScreen onNext={onNext} />} />
         case 2:
-            return <GenerateSlide key='user-slide' component={<UserFlowScreen onNext={onNext} onBack={onBack} />} />
+            return <GenerateSlide slideKey='user-slide' component={<UserFlowScreen onNext={onNext} onBack={onBack} />} />
         case 3:
-            return <GenerateSlide key='contact-slide' component={<ContactFlowScreen onNext={onNext} onBack={onBack} />} />
+            return <GenerateSlide slideKey='contact-slide' component={<ContactFlowScreen onNext={onNext} onBack={onBack} />} />
         case 4:
-            return <GenerateSlide key='review-slide' component={<ReviewFlowScreen onNext={onNext} onBack={onBack} />} />
+            return <GenerateSlide slideKey='review-slide' component={<ReviewFlowScreen onNext={onNext} onBack={onBack} />} />
         default:
             return <></>;
     }
 };
 
 const SignUpScreen = () => {
-    const { t } = useTranslation();
     const [currentScreen, setCurrentScreen] = useState(1);
+    const registrationStore = useRegistrationStore();
 
     const goToNextScreen = () => {
-        setCurrentScreen((prevScreen) => (prevScreen < totalScreens ? prevScreen + 1 : 1));
+        if (currentScreen === totalScreens) {
+            console.log(registrationStore);
+            console.log(JSON.stringify(registrationStore));
+        }
+        else {
+            setCurrentScreen((prevScreen) => (prevScreen < totalScreens ? prevScreen + 1 : 1));
+        }
     };
 
     const goToPreviousScreen = () => {
