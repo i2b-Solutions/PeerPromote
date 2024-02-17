@@ -4,30 +4,30 @@ import { useTranslation } from "react-i18next";
 import { getAppLanguage } from "./languageHelpers";
 
 const InitializeLanguage = () => {
-    const languageStore = useLanguageStore();
-    const { i18n } = useTranslation();
+  const languageStore = useLanguageStore();
+  const { i18n } = useTranslation();
 
-    useEffect(() => {
-        const languageData = getAppLanguage();
-        languageStore.setLanguage(languageData.language);
-        languageStore.setOpenLanguageModal(languageData.openModal);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+  useEffect(() => {
+    const languageData = getAppLanguage();
+    languageStore.setLanguage(languageData.language);
+    languageStore.setOpenLanguageModal(languageData.openModal);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        i18n.changeLanguage(languageStore.language);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [languageStore.language])
+  useEffect(() => {
+    i18n.changeLanguage(languageStore.language);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [languageStore.language]);
 
-    return null;
-}
+  return null;
+};
 
 const InitializeServices = () => {
-    return (
-        <>
-            <InitializeLanguage />
-        </>
-    )
-}
+  return (
+    <>
+      <InitializeLanguage />
+    </>
+  );
+};
 
 export default InitializeServices;
