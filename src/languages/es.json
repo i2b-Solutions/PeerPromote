@@ -20,7 +20,9 @@
     "welcome_back": "Bienvenido",
     "language": "Idioma",
     "back": "Regresar",
+    "previous": "Anterior",
     "next": "Siguiente",
+    "finish": "Finalizar",
     "main_page": {
         "business_look": "¿Buscas una empresa? ¡Explora emocionantes colaboraciones y asociaciones con empresas!",
         "connect": "Conecta al creador de contenido ideal",
@@ -41,7 +43,45 @@
         "create_account": "Crear nueva cuenta"
     },
     "sign_up_screen": {
-
+        "welcome": "Bienvenido a PeerPromote",
+        "we_are": "En PeerPromote, somos tu gestor digital que te ayudará a conectarte con marcas que buscan tu contenido. Completa tu perfil de usuario para acceder a las ofertas disponibles.",
+        "will_take": "¡Solo te llevará 3 minutos!",
+        "as_creator": "REGISTRARSE COMO CREADOR",
+        "as_business": "REGISTRARSE COMO COMERCIO",
+        "user_info": "Información de Usuario",
+        "register_as_creator": "Registrate como creador y descubre marcas para colaborar",
+        "birthdate": "Fecha de nacimiento",
+        "contact_info": "Información de Contacto",
+        "complete_info": "Para ayudarte a conectar con marcas, necesitamos completar tu información de contacto",
+        "profile_pic": "Foto de perfil",
+        "verify": "Verifica tu Información",
+        "all_ready": "Todo listo, verifica tu información para continuar"
+    },
+    "drop_image_area":{
+        "drop_here": "Arrastra y suelta una imagen aquí",
+        "or_click": "o haz clic para seleccionar un archivo",
+        "selected_file": "Archivo seleccionado"
+    },
+    "fields": {
+        "user": "Usuario",
+        "password": "Contraseña",
+        "confirm_password": "Confirmar contraseña",
+        "country": "País",
+        "location": "Ubicación",
+        "languages": "Idioma(s)",
+        "day": "Día",
+        "month": "Mes",
+        "year": "Año",
+        "email": "Correo",
+        "area": "Área",
+        "phone": "Celular",
+        "age": "Edad"
+    },
+    "field_errors": {
+        "invalid_email": "Correo electrónico no válido",
+        "empty": "El campo no puede estar vacío",
+        "invalid_date": "Fecha no válida",
+        "password_match": "Las contraseñas no coinciden"
     },
     "language_modal": {
         "continue_in": "Continuar en Español?"

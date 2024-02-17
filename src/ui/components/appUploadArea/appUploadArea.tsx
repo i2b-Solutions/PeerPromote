@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Colors, colorWithOpacity } from '@theme/colors';
 import ClearIcon from '@mui/icons-material/Clear';
 import { PoppinsFontWeights } from '@theme/fontWeights';
+import { useTranslation } from 'react-i18next';
 
 type FileUploadAreaProps = {
     onFileSelect: (file: File) => void;
@@ -26,12 +27,11 @@ const DropArea = styled('div')(({ isInteracting }: { isInteracting: boolean }) =
 }));
 
 const FileUploadArea: React.FC<FileUploadAreaProps> = ({ onFileSelect, onClear, style, file }) => {
+    const { t } = useTranslation();
     const [isInteracting, setIsInteracting] = useState<boolean>(false);
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('elegido...')
         if (event.target.files && event.target.files.length > 0) {
-            console.log('adentro...')
             const selectedFile = event.target.files[0];
             onFileSelect(selectedFile);
         }
@@ -85,7 +85,7 @@ const FileUploadArea: React.FC<FileUploadAreaProps> = ({ onFileSelect, onClear, 
             {file ?
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography sx={{ marginRight: '0.5rem' }} variant="body1">
-                        Archivo seleccionado: {file.name.length > 10 ? `${file.name.slice(0, 10)}...` : file.name}
+                        {t('drop_image_area.selected_file')}: {file.name.length > 10 ? `${file.name.slice(0, 10)}...` : file.name}
                     </Typography>
                     <IconButton
                         onClick={onClear}
@@ -95,8 +95,9 @@ const FileUploadArea: React.FC<FileUploadAreaProps> = ({ onFileSelect, onClear, 
                 </div>
                 :
                 <label htmlFor="file-input">
-                    <Typography variant="body1" fontWeight={PoppinsFontWeights.BOLD}>Arrastra y suelta una imagen aquí</Typography>
-                    <Typography variant="body2">o haz clic para seleccionar un archivo</Typography>
+                    <Typography variant="body1" 
+                    fontWeight={PoppinsFontWeights.BOLD}>{t('drop_image_area.drop_here')}</Typography>
+                    <Typography variant="body2">{t('drop_image_area.or_click')}</Typography>
                 </label>}
         </DropArea>
     );

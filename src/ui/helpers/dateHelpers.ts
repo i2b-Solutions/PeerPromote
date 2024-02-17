@@ -1,5 +1,5 @@
 export const isValidDate = (day: number, month: number, year: number) => {
-    if (year < 1 || year > 9999) {
+    if (year < 1900 || year > 9999) {
         return false;
     }
 

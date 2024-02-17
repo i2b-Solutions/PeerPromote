@@ -20,7 +20,9 @@
     "welcome_back": "Welcome Back",
     "language": "Language",
     "back": "Back",
+    "previous": "Previous",
     "next": "Next",
+    "finish": "Finish",
     "main_page": {
         "business_look": "Looking for a Business? Explore exciting collaborations and partnerships with businesses!",
         "connect": "Connect the ideal content creator",
@@ -39,6 +41,47 @@
         "by_clicking": "By clicking \"Sign In,\" you are agreeing to the terms of PeerPromote - ",
         "terms": "User Agreement, Privacy Policy, and Cookie Policy.",
         "create_account": "Create new account"
+    },
+    "sign_up_screen": {
+        "welcome": "Welcome to PeerPromote",
+        "we_are": "At PeerPromote, we are your digital manager that will help you connect with brands looking for your content. Complete your user profile to access available offers.",
+        "will_take": "It will only take you 3 minutes!",
+        "as_creator": "SIGN UP AS CREATOR",
+        "as_business": "SIGN UP AS BUSINESS",
+        "user_info": "User Information",
+        "register_as_creator": "Sign up as a creator and discover brands to collaborate with",
+        "birthdate": "Date of Birth",
+        "contact_info": "Contact Information",
+        "complete_info": "To help you connect with brands, we need to complete your contact information",
+        "profile_pic": "Profile Picture",
+        "verify": "Verify Your Information",
+        "all_ready": "All set, verify your information to continue"
+    },
+    "drop_image_area": {
+        "drop_here": "Drag and drop an image here",
+        "or_click": "or click to select a file",
+        "selected_file": "Selected file"
+    },
+    "fields": {
+        "user": "User",
+        "password": "Password",
+        "confirm_password": "Confirm Password",
+        "country": "Country",
+        "location": "Location",
+        "languages": "Language(s)",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "email": "Email",
+        "area": "Area",
+        "phone": "Phone",
+        "age": "Age"
+    },
+    "field_errors": {
+        "invalid_email": "Invalid email",
+        "empty": "Field cannot be empty",
+        "invalid_date": "Invalid date",
+        "password_match": "Passwords don't match"
     },
     "language_modal": {
         "continue_in": "Continue in English?"

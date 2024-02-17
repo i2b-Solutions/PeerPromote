@@ -57,26 +57,26 @@ const ReviewFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () =
     return (
         <Box textAlign={'left'}>
             <Typography variant="h5" fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.blue} sx={{ mb: '1rem' }}>
-                5. {'Verifica tu Información'}
+                5. {t('sign_up_screen.verify')}
             </Typography>
             <Typography variant="body1" color={Colors.main.darkBlue} sx={{ mb: '1.5rem' }}>
-                {"Todo listo, verifica tu información para continuar"}
+                {t('sign_up_screen.all_ready')}
             </Typography>
 
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Box>
-                        <TitleValue title={'Usuario'} value={registrationStore.username} />
-                        <TitleValue title={'Edad'} value={calculateAge(registrationStore.birthdate).toFixed(0)} />
+                        <TitleValue title={t('fields.user')} value={registrationStore.username} />
+                        <TitleValue title={t('fields.age')} value={calculateAge(registrationStore.birthdate).toFixed(0)} />
                         <Grid container >
                             <Grid item xs={12} md={6}>
-                                <TitleValue title={'País'} value={registrationStore.countryId} />
+                                <TitleValue title={t('fields.country')} value={registrationStore.countryId} />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <TitleValue title={'Departamento'} value={registrationStore.stateId} />
+                                <TitleValue title={t('fields.location')} value={registrationStore.stateId} />
                             </Grid>
                         </Grid>
-                        <TitleValue title={'Correo'} value={registrationStore.email} />
+                        <TitleValue title={t('fields.email')} value={registrationStore.email} />
                     </Box>
                 </Grid>
                 <Grid item xs={6}>
@@ -87,7 +87,7 @@ const ReviewFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () =
             <SignUpNavButtons
                 onBack={onBack}
                 onNext={handleOnNext}
-                nextValue={'Finalizar'}
+                nextValue={'finish'}
                 loading={loading}
             />
 

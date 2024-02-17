@@ -81,7 +81,7 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
             case FieldNames.COUNTRY:
             case FieldNames.STATE:
                 newFieldError[field] = !registrationStore[field] ? 'field_errors.empty' :
-                    (field === FieldNames.CONFIRM_PASSWORD && registrationStore.confirmPassword !== registrationStore.password ? 'field_errors.match' : '');
+                    (field === FieldNames.CONFIRM_PASSWORD && registrationStore.confirmPassword !== registrationStore.password ? 'field_errors.password_match' : '');
                 break;
             case FieldNames.LANGUAGES:
                 newFieldError[field] = !registrationStore[field].length ? 'field_errors.empty' : '';
@@ -129,26 +129,34 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
 
             <Grid item xs={12}>
                 <Typography variant="h5" fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.blue} sx={{ mb: '1rem' }}>
-                    1. {'Información de Usuario'}
+                    1. {t('sign_up_screen.user_info')}
                 </Typography>
                 <Typography variant="body1" color={Colors.main.darkBlue} sx={{ mb: '1.5rem' }}>
-                    {"Registrate como creador y descubre marcas para colaborar"}
+                    {t('sign_up_screen.register_as_creator')}
                 </Typography>
-                <AppTextField value={registrationStore.username} onBlur={() => { checkForm(FieldNames.USER) }} error={!!fieldError.username} helperText={fieldError.username} label={'Usuario'} variant="outlined" fullWidth onChange={(e) => { registrationStore.setUsername(e.target.value.toLowerCase()) }} sx={{ mb: 2 }} />
+                <AppTextField
+                    value={registrationStore.username}
+                    onBlur={() => { checkForm(FieldNames.USER) }}
+                    error={!!fieldError.username}
+                    helperText={t(fieldError.username)}
+                    label={t('fields.user')} variant="outlined"
+                    fullWidth
+                    onChange={(e) => { registrationStore.setUsername(e.target.value) }}
+                    sx={{ mb: 2 }} />
             </Grid>
 
             <Grid item xs={12} md={6}>
-                <AppTextField value={registrationStore.password} onBlur={() => { checkForm(FieldNames.PASSWORD) }} error={!!fieldError.password} helperText={fieldError.password} type="password" label={'Contraseña'} variant="outlined" fullWidth onChange={(e) => { registrationStore.setPassword(e.target.value) }} sx={{ mb: 2 }} />
+                <AppTextField value={registrationStore.password} onBlur={() => { checkForm(FieldNames.PASSWORD) }} error={!!fieldError.password} helperText={t(fieldError.password)} type="password" label={t('fields.password')} variant="outlined" fullWidth onChange={(e) => { registrationStore.setPassword(e.target.value) }} sx={{ mb: 2 }} />
             </Grid>
             <Grid item xs={12} md={6}>
-                <AppTextField value={registrationStore.confirmPassword} onBlur={() => { checkForm(FieldNames.CONFIRM_PASSWORD) }} error={!!fieldError.confirmPassword} helperText={fieldError.confirmPassword} type="password" label={'Confirmar contraseña'} variant="outlined" fullWidth onChange={(e) => { registrationStore.setConfirmPassword(e.target.value) }} sx={{ mb: 2 }} />
+                <AppTextField value={registrationStore.confirmPassword} onBlur={() => { checkForm(FieldNames.CONFIRM_PASSWORD) }} error={!!fieldError.confirmPassword} helperText={t(fieldError.confirmPassword)} type="password" label={t('fields.confirm_password')} variant="outlined" fullWidth onChange={(e) => { registrationStore.setConfirmPassword(e.target.value) }} sx={{ mb: 2 }} />
             </Grid>
 
             <Grid item xs={12} md={6}>
-                <AppDropSelector onBlur={() => { checkForm(FieldNames.COUNTRY) }} error={!!fieldError.countryId} helperText={fieldError.countryId} select value={registrationStore.countryId} label={'País'} sx={{ mb: 2 }}
+                <AppDropSelector onBlur={() => { checkForm(FieldNames.COUNTRY) }} error={!!fieldError.countryId} helperText={t(fieldError.countryId)} select value={registrationStore.countryId} label={t('fields.country')} sx={{ mb: 2 }}
                     onChange={(e) => { registrationStore.setCountryId(e.target.value) }} fullWidth>
                     <MenuItem value={registrationStore.countryId} disabled>
-                        País
+                        {t('fields.country')}
                     </MenuItem>
                     {SUPPORTED_COUNTRIES.map((country) => {
                         return (
@@ -161,10 +169,10 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
             </Grid>
 
             <Grid item xs={12} md={6}>
-                <AppDropSelector onBlur={() => { checkForm(FieldNames.STATE) }} error={!!fieldError.stateId} helperText={fieldError.stateId} select value={registrationStore.stateId} label={'Departamento'} sx={{ mb: 2 }}
+                <AppDropSelector onBlur={() => { checkForm(FieldNames.STATE) }} error={!!fieldError.stateId} helperText={t(fieldError.stateId)} select value={registrationStore.stateId} label={t('fields.location')} sx={{ mb: 2 }}
                     onChange={(e) => { registrationStore.setStateId(e.target.value) }} fullWidth>
                     <MenuItem value={registrationStore.stateId} disabled>
-                        Departamento
+                        {t('fields.location')}
                     </MenuItem>
                     {getCountryStates(registrationStore.countryId).map((stateItem) => {
                         return (
@@ -213,10 +221,10 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
                         <TextField
                             {...params}
                             variant="outlined"
-                            label="Idioma(s)"
+                            label={t('fields.languages')}
                             placeholder=""
                             error={!!fieldError.languages}
-                            helperText={fieldError.languages}
+                            helperText={t(fieldError.languages)}
                         />
                     )}
                 />
@@ -224,27 +232,27 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
 
             <Grid item xs={12}>
                 <Typography variant="h5" fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.blue} sx={{ mb: '1rem', mt: '1rem' }}>
-                    2. {'Fecha de nacimiento'}
+                    2. {t('sign_up_screen.birthdate')}
                 </Typography>
             </Grid>
 
             <Grid item xs={3} >
-                <AppTextField value={registrationStore.birthdate.day || ''} onBlur={() => { checkForm(FieldNames.DAY) }} error={!!fieldError.day} type="number" label={'Día'} variant="outlined" fullWidth
+                <AppTextField value={registrationStore.birthdate.day || ''} onBlur={() => { checkForm(FieldNames.DAY) }} error={!!fieldError.day} type="number" label={t('fields.day')} variant="outlined" fullWidth
                     onChange={(e) => { handleBirthChange(e.target.value, FieldNames.DAY) }} sx={{ mb: 2 }} />
             </Grid>
             <Grid item xs={3} >
-                <AppTextField value={registrationStore.birthdate.month || ''} onBlur={() => { checkForm(FieldNames.MONTH) }} error={!!fieldError.month} type="number" label={'Mes'} variant="outlined" fullWidth
+                <AppTextField value={registrationStore.birthdate.month || ''} onBlur={() => { checkForm(FieldNames.MONTH) }} error={!!fieldError.month} type="number" label={t('fields.month')} variant="outlined" fullWidth
                     onChange={(e) => { handleBirthChange(e.target.value, FieldNames.MONTH) }} />
             </Grid>
             <Grid item xs={6}>
-                <AppTextField value={registrationStore.birthdate.year || ''} onBlur={() => { checkForm(FieldNames.YEAR) }} error={!!fieldError.year} type="number" label={'Año'} variant="outlined" fullWidth
+                <AppTextField value={registrationStore.birthdate.year || ''} onBlur={() => { checkForm(FieldNames.YEAR) }} error={!!fieldError.year} type="number" label={t('fields.year')} variant="outlined" fullWidth
                     onChange={(e) => { handleBirthChange(e.target.value, FieldNames.YEAR) }} />
             </Grid>
 
             {
                 !!fieldError.birthdate &&
                 <Typography variant="body2" color={Colors.main.red} sx={{ mb: '1rem', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
-                    field_errors.check_birthdate
+                    {t(fieldError.birthdate)}
                 </Typography>
             }
 

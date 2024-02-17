@@ -1,32 +1,34 @@
-import AppButton from "@components/appButton/appButton";
 import AppSquareButton from "@components/appButton/squareButton";
 import { Box, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
 import { PoppinsFontWeights } from "@theme/fontWeights";
+import { useTranslation } from "react-i18next";
 
 const WelcomeFlowScreen = ({ onNext }: { onNext: () => void }) => {
+    const { t } = useTranslation();
+
     return (
         <Box textAlign={'left'}>
             <Typography variant="h5" fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.blue} sx={{ mb: '1rem' }}>
-                {'Bienvenido a PeerPromote'}
+                {t('sign_up_screen.welcome')}
             </Typography>
             <Typography variant="body1" color={Colors.main.darkBlue}>
-                {"En PeerPromote, somos tu gestor digital que te ayudará a conectarte con marcas que buscan tu contenido. Completa tu perfil de usuario para acceder a las ofertas disponibles. "}
+                {t('sign_up_screen.we_are')}
             </Typography>
             <Typography component={'span'} fontWeight={PoppinsFontWeights.BOLD} color={Colors.main.blue}>
-                {"¡Solo te llevará 3 minutos!"}
+                {t('sign_up_screen.will_take')}
             </Typography>
 
             <Grid container spacing={2} mt={'2rem'}>
                 <Grid item xs={12} md={6}>
                     <AppSquareButton onClick={onNext} variation="outline">
-                        Registrarse como creador
+                        {t('sign_up_screen.as_creator')}
                     </AppSquareButton>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
                     <AppSquareButton onClick={onNext} variation="outline">
-                        Registrarse como comercio
+                        {t('sign_up_screen.as_business')}
                     </AppSquareButton>
                 </Grid>
             </Grid>

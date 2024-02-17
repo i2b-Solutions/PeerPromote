@@ -1,5 +1,6 @@
 import AppSquareButton from "@components/appButton/squareButton";
 import { Grid, CircularProgress } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 type NavButtonProps = {
     onNext: () => void,
@@ -9,12 +10,13 @@ type NavButtonProps = {
     nextValue?: string;
 }
 
-const SignUpNavButtons = ({ onNext, onBack, disabled = false, loading, nextValue = 'Siguiente' }: NavButtonProps) => {
+const SignUpNavButtons = ({ onNext, onBack, disabled = false, loading, nextValue = 'next' }: NavButtonProps) => {
+    const { t } = useTranslation();
     return (
         <Grid container spacing={2} mt={'0.1rem'}>
             <Grid item xs={12} md={6}>
                 <AppSquareButton onClick={onBack} variation="outline">
-                    Anterior
+                    {t('previous')}
                 </AppSquareButton>
             </Grid>
 
@@ -27,7 +29,7 @@ const SignUpNavButtons = ({ onNext, onBack, disabled = false, loading, nextValue
                     {loading ? (
                         <CircularProgress size={24} color="inherit" />
                     ) : (
-                        nextValue
+                        t(nextValue)
                     )}
                 </AppSquareButton>
             </Grid>
