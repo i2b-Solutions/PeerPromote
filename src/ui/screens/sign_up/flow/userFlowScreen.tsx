@@ -96,7 +96,8 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
         }
 
         setFieldError(newFieldError);
-    };
+    }
+
 
     const handleBirthChange = (newValue: string, field: FieldNames) => {
         const parsedValue = parseInt(newValue) || 0;
@@ -122,6 +123,7 @@ const UserFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => 
 
     useEffect(() => {
         checkForm();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [registrationStore])
 
     return (

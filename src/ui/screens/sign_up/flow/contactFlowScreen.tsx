@@ -1,6 +1,6 @@
 import AppTextField from "@components/appTextField/appTextField";
 import FileUploadArea from "@components/appUploadArea/appUploadArea";
-import { Box, Grid, InputAdornment, Typography } from "@mui/material";
+import { Grid, InputAdornment, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
 import useRegistrationStore from "@ui/stores/registrationStore";
 import { useEffect, useState } from "react";
@@ -44,27 +44,28 @@ const ContactFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () 
         switch (field) {
             case FieldNames.UNSET:
                 const isValidEmail = validateEmail(email);
-                newFieldError.email = !isValidEmail && !!email ? 'field_errors.invalid_email' : '';
+
+                if (!!email) newFieldError.email = !isValidEmail && !!email ? 'field_errors.invalid_email' : '';
 
                 const shouldAdvance = !!email && !!isValidEmail && !!area && !!phone && !!selfie;
                 setCanAdvance(shouldAdvance);
-                if (shouldAdvance) setFieldError({ ...FieldErrorNames })
+                if (shouldAdvance) setFieldError({ ...FieldErrorNames });
                 break;
             case FieldNames.EMAIL:
             case FieldNames.AREA:
             case FieldNames.PHONE:
-                newFieldError[field] = !registrationStore[field] ? 'field_errors.empty' : '';
-                if (field === FieldNames.EMAIL) {
+                if (field === FieldNames.EMAIL && !!field) {
                     const isValidEmail = validateEmail(email);
                     newFieldError[field] = !isValidEmail && !!email ? 'field_errors.invalid_email' : newFieldError[field];
                 }
+                newFieldError[field] = !registrationStore[field] ? 'field_errors.empty' : '';
                 break;
             default:
                 break;
         }
 
         setFieldError(newFieldError);
-    };
+    }
 
     const handleOnNext = () => {
         setLoading(true);
@@ -73,6 +74,7 @@ const ContactFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () 
 
     useEffect(() => {
         checkForm();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [registrationStore])
 
     return (
@@ -96,7 +98,7 @@ const ContactFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () 
                     label={t('fields.email')} variant="outlined" fullWidth sx={{ mb: 2 }} />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={4}>
                 <AppTextField
                     value={registrationStore.area}
                     error={!!fieldError.area}
@@ -108,7 +110,7 @@ const ContactFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () 
                     }}
                     type="number" label={t('fields.area')} variant="outlined" fullWidth sx={{ mb: 2 }} />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={8}>
                 <AppTextField
                     value={registrationStore.phone}
                     error={!!fieldError.phone}

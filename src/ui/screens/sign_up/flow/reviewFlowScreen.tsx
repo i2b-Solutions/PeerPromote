@@ -4,7 +4,6 @@ import { PoppinsFontWeights } from "@theme/fontWeights";
 import useRegistrationStore from "@ui/stores/registrationStore";
 import { useTranslation } from "react-i18next";
 import SignUpNavButtons from "../components/navButtons";
-import { useState } from "react";
 import { calculateAge } from "@ui/helpers/dateHelpers";
 
 const TitleValue = ({ title, value }: { title: string, value: string }) => {
@@ -47,7 +46,6 @@ const SelfieImage = ({ selfie }: { selfie?: File }) => {
 
 const ReviewFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () => void }) => {
     const { t } = useTranslation();
-    const [loading, setLoading] = useState(false);
     const registrationStore = useRegistrationStore();
 
     const handleOnNext = () => {
@@ -88,7 +86,6 @@ const ReviewFlowScreen = ({ onNext, onBack }: { onNext: () => void, onBack: () =
                 onBack={onBack}
                 onNext={handleOnNext}
                 nextValue={'finish'}
-                loading={loading}
             />
 
         </Box>

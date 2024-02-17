@@ -7,11 +7,10 @@ import { SYSTEM_LANGUAGES } from '@domain/enums/domainEnums';
 import { SUPPORTED_LANGUAGES } from '@domain/constants/domainConstants';
 
 const AppLanguageModal = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const languageStore = useLanguageStore();
 
     const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-        i18n.changeLanguage(event.target.value)
         languageStore.setLanguage(event.target.value as SYSTEM_LANGUAGES);
     };
 

@@ -2,7 +2,7 @@ import AppButton from "@components/appButton/appButton";
 import AppClickableText from "@components/appClickableText/appClickableText";
 import AppTextField from "@components/appTextField/appTextField";
 import styled from "@emotion/styled";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { Colors } from "@theme/colors";
 import { PoppinsFontWeights } from "@theme/fontWeights";
 import { useTranslation } from "react-i18next";

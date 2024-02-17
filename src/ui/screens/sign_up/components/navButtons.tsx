@@ -6,11 +6,11 @@ type NavButtonProps = {
     onNext: () => void,
     onBack: () => void,
     disabled?: boolean,
-    loading: boolean;
+    loading?: boolean;
     nextValue?: string;
 }
 
-const SignUpNavButtons = ({ onNext, onBack, disabled = false, loading, nextValue = 'next' }: NavButtonProps) => {
+const SignUpNavButtons = ({ onNext, onBack, disabled = false, loading = false, nextValue = 'next' }: NavButtonProps) => {
     const { t } = useTranslation();
     return (
         <Grid container spacing={2} mt={'0.1rem'}>
