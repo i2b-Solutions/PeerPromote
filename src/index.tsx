@@ -6,7 +6,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 // Import the main component for your routes
 import RoutesComponent from "./ui/flows/routes/router";
 import { AppMuiTheme } from "@theme/muiTheme";
-import i18n from "./languages/i18n";
+import i18n from "./ui/languages/i18n";
 import { I18nextProvider } from "react-i18next";
 import InitializeServices from "@ui/helpers/initializers";
 import AppLanguageModal from "@components/appLanguageModal/appLanguageModal";
@@ -36,7 +36,5 @@ const root = ReactDOM.createRoot(
 
 // Render the main application within a React.StrictMode
 root.render(
-  <React.StrictMode>
     <AppWithI18n />
-  </React.StrictMode>
 );

@@ -1,7 +1,10 @@
-import { CountryResponse, DataResponse } from "@data/types/dataTypes";
-import { Country, Data, STATUS } from "@domain/types/domainTypes";
+import { CountryResponse } from "@data/entities/countryResponse";
+import { DataResponse } from "@data/entities/dataResponse";
+import { Country } from "@domain/entities/country";
+import { Data } from "@domain/entities/data";
+import { STATUS } from "@domain/entities/status";
 
-export const convertCountryResponseToData = (
+export const convertCountriesResponseToData = (
   data: DataResponse<CountryResponse[]>
 ): Data<Country[]> => {
   const mappedData: Country[] = (data.data || []).map((country) => ({

@@ -1,4 +1,4 @@
-import { SUPPORTED_LANGUAGE } from '@domain/types/domainTypes';
+import { SupportedLanguage } from '@domain/entities/languageEntities';
 import { create } from 'zustand';
 
 type RegistrationStore = {
@@ -8,7 +8,7 @@ type RegistrationStore = {
     confirmPassword: string;
     countryId: string;
     stateId: string;
-    languages: SUPPORTED_LANGUAGE[];
+    languages: SupportedLanguage[];
     birthdate: { day: number, month: number, year: number };
     // Step 2
     email: string;
@@ -21,7 +21,7 @@ type RegistrationStore = {
     setConfirmPassword: (value: string) => void;
     setCountryId: (value: string) => void;
     setStateId: (value: string) => void;
-    setLanguages: (values: SUPPORTED_LANGUAGE[]) => void;
+    setLanguages: (values: SupportedLanguage[]) => void;
     setBirthDay: (value: number) => void;
     setBirthMonth: (value: number) => void;
     setBirthYear: (value: number) => void;
@@ -52,7 +52,7 @@ const useRegistrationStore = create<RegistrationStore>((set) => {
         setConfirmPassword: (value: string) => set({ confirmPassword: value.trim() }),
         setCountryId: (value: string) => set({ countryId: value }),
         setStateId: (value: string) => set({ stateId: value }),
-        setLanguages: (values: SUPPORTED_LANGUAGE[]) => set({ languages: values }),
+        setLanguages: (values: SupportedLanguage[]) => set({ languages: values }),
         setBirthDay: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, day: value } })),
         setBirthMonth: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, month: value } })),
         setBirthYear: (value: number) => set((state) => ({ birthdate: { ...state.birthdate, year: value } })),

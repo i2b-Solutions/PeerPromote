@@ -11,14 +11,14 @@ import {
 } from "@mui/material";
 import { Colors } from "@theme/colors";
 import useRegistrationStore from "@ui/stores/registrationStore";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SignUpNavButtons from "../components/navButtons";
 import { isValidDate } from "@ui/helpers/dateHelpers";
 import { PoppinsFontWeights } from "@theme/fontWeights";
-import { getCountryList } from "@domain/controllers/countryController/countryController";
-import { Country, CountryState } from "@domain/types/domainTypes";
 import { SUPPORTED_COUNTRIES } from "@ui/constants/locationConstants";
+import { Country, CountryState } from "@domain/entities/country";
+import { CountryController } from "@domain/controllers/countryController/countryController";
 
 enum FieldNames {
   USER = "username",
@@ -164,7 +164,7 @@ const UserFlowScreen = ({
   };
 
   const loadCountries = async () => {
-    const supportedCountries = (await getCountryList()).data.filter((country) =>
+    const supportedCountries = (await CountryController.getCountries()).data.filter((country) =>
       SUPPORTED_COUNTRIES.includes(country.iso2.toLowerCase())
     );
     setCountries(supportedCountries);

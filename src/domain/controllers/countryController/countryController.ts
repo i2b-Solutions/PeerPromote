@@ -1,6 +1,9 @@
-import { getCountriesFile } from "@data/country/countryManager";
-import { convertCountryResponseToData } from "@domain/converters/countryConverters";
-import { Country, Data } from "@domain/types/domainTypes";
+import { Country } from "@domain/entities/country";
+import { Data } from "@domain/entities/data";
+import { getCountriesUseCase } from "@domain/useCases/getCountryUseCase";
 
-export const getCountryList = async (): Promise<Data<Country[]>> =>
-  convertCountryResponseToData(await getCountriesFile());
+export class CountryController {
+  static async getCountries(cache: boolean = true): Promise<Data<Country[]>> {
+    return getCountriesUseCase(cache);
+  }
+}

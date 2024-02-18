@@ -1,6 +1,6 @@
-import { SUPPORTED_LANGUAGE } from "@domain/types/domainTypes";
+import { SupportedLanguage } from "@domain/entities/languageEntities";
 
-export const SUPPORTED_LANGUAGES: SUPPORTED_LANGUAGE[] = [
+export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
     {
         id: 'en',
         name: 'English'
