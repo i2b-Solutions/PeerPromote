@@ -1,1 +1,1 @@
-export const SUPPORTED_COUNTRIES = ["sv"];
+export const SUPPORTED_COUNTRIES = ["sv", "gt"];

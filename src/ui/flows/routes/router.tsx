@@ -8,6 +8,7 @@ import SignInScreen from "@ui/screens/sign_in/SignInScreen";
 import MainScreen from "@ui/screens/main/mainScreen";
 import LauncherScreen from "@ui/screens/launcher/launcherScreen";
 import SignUpScreen from "@ui/screens/sign_up/SignUpScreen";
+import OffersScreen from "@ui/screens/offers/offersScreen";
 
 // Define the RoutesComponent functional component
 const RoutesComponent = () => {
@@ -42,6 +43,16 @@ const RoutesComponent = () => {
           element={
             <AppMainWrapper topBarPath={MainRoutes.SIGN_UP}>
               <SignUpScreen />
+            </AppMainWrapper>
+          }
+        />
+
+        {/* Define a route for the iffers path ('/offers') rendering OffersScreen */}
+        <Route
+          path={MainRoutes.OFFERS}
+          element={
+            <AppMainWrapper topBarPath={MainRoutes.OFFERS}>
+              <OffersScreen />
             </AppMainWrapper>
           }
         />

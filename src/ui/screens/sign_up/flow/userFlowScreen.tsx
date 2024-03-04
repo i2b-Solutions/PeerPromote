@@ -7,18 +7,22 @@ import {
   Grid,
   MenuItem,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { Colors } from "@theme/colors";
 import useRegistrationStore from "@ui/stores/registrationStore";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SignUpNavButtons from "../components/navButtons";
-import { isValidDate } from "@ui/helpers/dateHelpers";
+import { calculateAge, isValidDate } from "@ui/helpers/dateHelpers";
 import { PoppinsFontWeights } from "@theme/fontWeights";
 import { SUPPORTED_COUNTRIES } from "@ui/constants/locationConstants";
 import { Country, CountryState } from "@domain/entities/country";
 import { CountryController } from "@domain/controllers/countryController/countryController";
+import { SignUpController } from "@domain/controllers/signUpController/signUpController";
+import { STATUS } from "@domain/entities/status";
+
+const currentYear: number = new Date().getFullYear();
 
 enum FieldNames {
   USER = "username",
@@ -31,10 +35,10 @@ enum FieldNames {
   MONTH = "month",
   YEAR = "year",
   BIRTHDATE = "birthdate",
-  UNSET = "unset",
+  UNSET = "unset"
 }
 
-const FielErrorNames = {
+const initialFieldErrors = {
   username: "",
   password: "",
   confirmPassword: "",
@@ -45,11 +49,12 @@ const FielErrorNames = {
   month: "",
   year: "",
   birthdate: "",
+  submit: ""
 };
 
 const UserFlowScreen = ({
   onNext,
-  onBack,
+  onBack
 }: {
   onNext: () => void;
   onBack: () => void;
@@ -57,7 +62,7 @@ const UserFlowScreen = ({
   const { t } = useTranslation();
 
   const registrationStore = useRegistrationStore();
-  const [fieldError, setFieldError] = useState(FielErrorNames);
+  const [fieldError, setFieldError] = useState({ ...initialFieldErrors });
   const [canAdvance, setCanAdvance] = useState(false);
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState<Country[]>([]);
@@ -72,41 +77,56 @@ const UserFlowScreen = ({
           username,
           password,
           confirmPassword,
-          countryId,
-          stateId,
+          location,
           languages,
-          birthdate,
+          birthdate
         } = registrationStore;
         const { day, month, year } = birthdate;
+        const { countryId, stateId } = location;
 
-        if (!day || !month || !year) {
-          newFieldError.birthdate = "";
-          break;
+        let isDateValid = false;
+
+        if (year > 1000) {
+          isDateValid = isValidDate(
+            day,
+            month,
+            year,
+            currentYear - 100,
+            currentYear
+          );
+
+          newFieldError.birthdate = isDateValid
+            ? ""
+            : "field_errors.invalid_date";
+
+          if (isDateValid) {
+            const isAdult = calculateAge(birthdate) >= 18;
+            isDateValid = isAdult;
+
+            newFieldError.birthdate = isAdult ? "" : "field_errors.underage";
+          }
         }
 
-        const isDateValid = isValidDate(day, month, year);
-        newFieldError.birthdate = isDateValid
-          ? ""
-          : "field_errors.invalid_date";
-        setCanAdvance(
+        const shouldAdvance =
           !!username &&
-            !!password &&
-            !!confirmPassword &&
-            password === confirmPassword &&
-            !!countryId &&
-            !!stateId &&
-            !!languages.length &&
-            !!day &&
-            !!month &&
-            !!year &&
-            isDateValid
-        );
+          !!password &&
+          !!confirmPassword &&
+          password === confirmPassword &&
+          !!countryId &&
+          !!stateId &&
+          !!languages.length &&
+          !!day &&
+          !!month &&
+          !!year &&
+          isDateValid;
+
+        setCanAdvance(shouldAdvance);
+        if (shouldAdvance) setFieldError({ ...initialFieldErrors });
+
         break;
       case FieldNames.USER:
       case FieldNames.PASSWORD:
       case FieldNames.CONFIRM_PASSWORD:
-      case FieldNames.COUNTRY:
-      case FieldNames.STATE:
         newFieldError[field] = !registrationStore[field]
           ? "field_errors.empty"
           : field === FieldNames.CONFIRM_PASSWORD &&
@@ -116,6 +136,12 @@ const UserFlowScreen = ({
         break;
       case FieldNames.LANGUAGES:
         newFieldError[field] = !registrationStore[field].length
+          ? "field_errors.empty"
+          : "";
+        break;
+      case FieldNames.COUNTRY:
+      case FieldNames.STATE:
+        newFieldError[field] = !registrationStore.location[field]
           ? "field_errors.empty"
           : "";
         break;
@@ -135,36 +161,72 @@ const UserFlowScreen = ({
 
   const handleBirthChange = (newValue: string, field: FieldNames) => {
     const parsedValue = parseInt(newValue) || 0;
+
     switch (field) {
       case FieldNames.DAY:
-        registrationStore.setBirthDay(parsedValue);
+        registrationStore.setBirthDay(Math.min(parsedValue, 31));
         break;
       case FieldNames.MONTH:
-        registrationStore.setBirthMonth(parsedValue);
+        registrationStore.setBirthMonth(Math.min(parsedValue, 12));
         break;
       case FieldNames.YEAR:
-        registrationStore.setBirthYear(parsedValue);
+        registrationStore.setBirthYear(Math.min(parsedValue, currentYear));
         break;
       default:
         break;
     }
   };
 
-  const handleOnNext = () => {
+  const handleOnNext = async () => {
     setLoading(true);
-    onNext();
+
+    const response = await SignUpController.checkUserAvailability(
+      registrationStore.username
+    );
+
+    if (response.status === STATUS.OK) {
+      if (response.isAvailable) onNext();
+      else {
+        setFieldError((prevFieldError) => ({
+          ...prevFieldError,
+          username: "errors.user_exists"
+        }));
+      }
+    } else {
+      setFieldError((prevFieldError) => ({
+        ...prevFieldError,
+        submit: "errors.try_again"
+      }));
+    }
+
+    setLoading(false);
   };
 
-  const handleCountryChange = (selectedCountry: string) => {
-    registrationStore.setCountryId(selectedCountry);
+  const updateStates = (selectedCountry: string) => {
     setStates(
-      countries.find((countryItem) => countryItem.iso2 === selectedCountry)
-        ?.states || []
+      countries.find(
+        (countryItem) => countryItem.iso2.toLowerCase() === selectedCountry
+      )?.states || []
     );
   };
 
+  const handleCountryChange = (id: string) => {
+    const countryName =
+      countries.find((country) => country.iso2.toLowerCase() === id)?.name ||
+      "";
+    registrationStore.setCountry(id, countryName);
+    registrationStore.setState(0, "");
+  };
+
+  const handleStateChange = (id: number) => {
+    const stateName = states.find((state) => state.id === id)?.name || "";
+    registrationStore.setState(id, stateName);
+  };
+
   const loadCountries = async () => {
-    const supportedCountries = (await CountryController.getCountries()).data.filter((country) =>
+    const supportedCountries = (
+      await CountryController.getCountries()
+    ).data.filter((country) =>
       SUPPORTED_COUNTRIES.includes(country.iso2.toLowerCase())
     );
     setCountries(supportedCountries);
@@ -173,6 +235,11 @@ const UserFlowScreen = ({
   useEffect(() => {
     loadCountries();
   }, []);
+
+  useEffect(() => {
+    updateStates(registrationStore.location.countryId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [registrationStore.location.countryId, countries]);
 
   useEffect(() => {
     checkForm();
@@ -259,7 +326,7 @@ const UserFlowScreen = ({
           error={!!fieldError.countryId}
           helperText={t(fieldError.countryId)}
           select
-          value={registrationStore.countryId}
+          value={registrationStore.location.countryId}
           label={t("fields.country")}
           sx={{ mb: 2 }}
           onChange={(e) => {
@@ -267,12 +334,15 @@ const UserFlowScreen = ({
           }}
           fullWidth
         >
-          <MenuItem value={registrationStore.countryId} disabled>
+          <MenuItem value={registrationStore.location.countryId} disabled>
             {t("fields.country")}
           </MenuItem>
           {countries.map((country) => {
             return (
-              <MenuItem value={country.iso2} key={country.iso2}>
+              <MenuItem
+                value={country.iso2.toLowerCase()}
+                key={country.iso2.toLowerCase()}
+              >
                 {country.name}
               </MenuItem>
             );
@@ -288,15 +358,15 @@ const UserFlowScreen = ({
           error={!!fieldError.stateId}
           helperText={t(fieldError.stateId)}
           select
-          value={registrationStore.stateId}
+          value={registrationStore.location.stateId || ""}
           label={t("fields.location")}
           sx={{ mb: 2 }}
           onChange={(e) => {
-            registrationStore.setStateId(e.target.value);
+            handleStateChange(parseInt(e.target.value, 10) || 0);
           }}
           fullWidth
         >
-          <MenuItem value={registrationStore.stateId} disabled>
+          <MenuItem value={registrationStore.location.stateId} disabled>
             {t("fields.location")}
           </MenuItem>
           {states.map((stateItem) => {
@@ -329,8 +399,8 @@ const UserFlowScreen = ({
               backgroundColor: Colors.main.white,
               paddingTop: "0.25rem",
               paddingLeft: "0.3rem",
-              paddingRight: "0.3rem",
-            },
+              paddingRight: "0.3rem"
+            }
           }}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
@@ -340,7 +410,7 @@ const UserFlowScreen = ({
                 style={{
                   margin: "4px",
                   backgroundColor: Colors.main.purple,
-                  color: Colors.main.white,
+                  color: Colors.main.white
                 }}
               />
             ))
@@ -376,7 +446,7 @@ const UserFlowScreen = ({
             checkForm(FieldNames.DAY);
           }}
           error={!!fieldError.day}
-          type="number"
+          type="tel"
           label={t("fields.day")}
           variant="outlined"
           fullWidth
@@ -393,7 +463,7 @@ const UserFlowScreen = ({
             checkForm(FieldNames.MONTH);
           }}
           error={!!fieldError.month}
-          type="number"
+          type="tel"
           label={t("fields.month")}
           variant="outlined"
           fullWidth
@@ -409,7 +479,7 @@ const UserFlowScreen = ({
             checkForm(FieldNames.YEAR);
           }}
           error={!!fieldError.year}
-          type="number"
+          type="tel"
           label={t("fields.year")}
           variant="outlined"
           fullWidth
@@ -423,9 +493,29 @@ const UserFlowScreen = ({
         <Typography
           variant="body2"
           color={Colors.main.red}
-          sx={{ mb: "1rem", paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+          sx={{
+            mt: "0.75eslintrc rem",
+            mb: "1rem",
+            paddingLeft: "0.5rem",
+            paddingRight: "0.5rem"
+          }}
         >
           {t(fieldError.birthdate)}
+        </Typography>
+      )}
+
+      {!!fieldError.submit && (
+        <Typography
+          variant="body2"
+          color={Colors.main.red}
+          sx={{
+            mb: "1rem",
+            mt: "1rem",
+            paddingLeft: "0.5rem",
+            paddingRight: "0.5rem"
+          }}
+        >
+          {t(fieldError.submit)}
         </Typography>
       )}
 

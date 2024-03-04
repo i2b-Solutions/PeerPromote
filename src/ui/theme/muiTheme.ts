@@ -7,16 +7,16 @@ export const AppMuiTheme = createTheme({
     allVariants: {
       color: Colors.main.darkBlue,
     },
-    h1: { fontFamily: 'Poppins, sans-serif' },
-    h2: { fontFamily: 'Poppins, sans-serif' },
-    h3: { fontFamily: 'Poppins, sans-serif' },
-    h4: { fontFamily: 'Poppins, sans-serif' },
-    h5: { fontFamily: 'Poppins, sans-serif' },
-    h6: { fontFamily: 'Poppins, sans-serif' },
-    body1: { fontFamily: '"Poppins", sans-serif', fontSize: '1rem' },
-    body2: { fontFamily: '"Poppins", sans-serif', fontSize: '0.9rem' },
+    h1: { fontFamily: "Poppins, sans-serif" },
+    h2: { fontFamily: "Poppins, sans-serif" },
+    h3: { fontFamily: "Poppins, sans-serif" },
+    h4: { fontFamily: "Poppins, sans-serif" },
+    h5: { fontFamily: "Poppins, sans-serif" },
+    h6: { fontFamily: "Poppins, sans-serif" },
+    body1: { fontFamily: '"Poppins", sans-serif', fontSize: "1rem" },
+    body2: { fontFamily: '"Poppins", sans-serif', fontSize: "0.9rem" },
     caption: { fontFamily: '"Poppins", sans-serif' },
-    button: { fontFamily: 'Poppins, sans-serif', fontSize: '1rem' },
+    button: { fontFamily: "Poppins, sans-serif", fontSize: "1rem" },
     subtitle1: { fontFamily: '"Poppins", sans-serif' },
     subtitle2: { fontFamily: '"Poppins", sans-serif' },
   },
@@ -31,7 +31,7 @@ export const AppMuiTheme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          '&.Mui-focused': {
+          "&.Mui-focused": {
             color: Colors.main.blue,
           },
         },
@@ -40,7 +40,7 @@ export const AppMuiTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: Colors.main.blue,
           },
         },

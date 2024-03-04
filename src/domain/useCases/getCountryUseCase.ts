@@ -3,32 +3,27 @@ import { convertCountriesResponseToData } from "@domain/converters/countryConver
 import { Country } from "@domain/entities/country";
 import { Data } from "@domain/entities/data";
 import { STATUS } from "@domain/entities/status";
+import { DataCache } from "@domain/helpers/dataCache";
 
-const initialValue = {
+const initialValue: Data<Country[]> = {
   data: [],
   message: "",
   status: STATUS.INITIAL,
 };
 
-let lastCallTime: number = 0;
-const fetchInterval = 1000 * 60 * 15; // 15 minutes
-let cacheData: Data<Country[]> = initialValue;
+const countryCache = new DataCache<Country[]>(initialValue);
+
+const fetchCountries = async () => {
+  const response = await getCountriesData();
+  return convertCountriesResponseToData(response);
+};
 
 export const getCountriesUseCase = async (
   cache: boolean
 ): Promise<Data<Country[]>> => {
-  if (
-    Date.now() - lastCallTime < fetchInterval &&
-    cache &&
-    cacheData.status === STATUS.OK
-  ) {
-    return cacheData;
-  }
-
-  const countriesDataResponse = await getCountriesData();
-
-  cacheData = convertCountriesResponseToData(countriesDataResponse);
-  lastCallTime = Date.now();
-
-  return cacheData;
+  const cacheValue = await countryCache.fetchDataWithCache(
+    fetchCountries,
+    cache
+  );
+  return cacheValue;
 };

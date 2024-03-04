@@ -1,12 +1,27 @@
 import { useState } from "react";
-import { Container, Grid, Slide } from "@mui/material";
+import { Container, Grid, Hidden, Slide } from "@mui/material";
 import WelcomeFlowScreen from "./flow/welcomeFlowScreen";
 import UserFlowScreen from "./flow/userFlowScreen";
 import ContactFlowScreen from "./flow/contactFlowScreen";
 import ReviewFlowScreen from "./flow/reviewFlowScreen";
-import useRegistrationStore from "@ui/stores/registrationStore";
+import AppStepIndicator from "@components/appStepIndicator/appStepIndicator";
+import ReadyFlowScreen from "./flow/readyFlowScreen";
+import { AppImageWithText } from "@components/appImage/appImage";
 
-const totalScreens = 4;
+const totalScreens = 5;
+
+const getTextForScreen = (currentScreen: number): string => {
+  switch (currentScreen) {
+    case 2:
+      return "sign_up_screen.your_manager";
+    case 3:
+      return "sign_up_screen.connect";
+    case 4:
+      return "sign_up_screen.discover";
+    default:
+      return "";
+  }
+};
 
 const SlideWrapper = ({
   slideKey,
@@ -77,6 +92,10 @@ const ScreenNavigator = ({
           component={<ReviewFlowScreen onNext={onNext} onBack={onBack} />}
         />
       );
+    case 5:
+      return (
+        <GenerateSlide slideKey="ready-slide" component={<ReadyFlowScreen />} />
+      );
     default:
       return <></>;
   }
@@ -84,17 +103,11 @@ const ScreenNavigator = ({
 
 const SignUpScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
-  const registrationStore = useRegistrationStore();
 
   const goToNextScreen = () => {
-    if (currentScreen === totalScreens) {
-      console.log(registrationStore);
-      console.log(JSON.stringify(registrationStore));
-    } else {
-      setCurrentScreen((prevScreen) =>
-        prevScreen < totalScreens ? prevScreen + 1 : 1
-      );
-    }
+    setCurrentScreen((prevScreen) =>
+      prevScreen < totalScreens ? prevScreen + 1 : 1
+    );
   };
 
   const goToPreviousScreen = () => {
@@ -103,10 +116,14 @@ const SignUpScreen = () => {
     );
   };
 
+  const invertItems = currentScreen === totalScreens;
+
   return (
-    <Container sx={{ mt: 4 }}>
-      <Grid container>
+    <Container sx={{ mt: 3 }}>
+      <AppStepIndicator currentStep={currentScreen} totalSteps={totalScreens} />
+      <Grid container sx={{ mt: "2rem" }}>
         <Grid
+          order={invertItems ? 2 : 1}
           item
           xs={12}
           md={6}
@@ -118,6 +135,16 @@ const SignUpScreen = () => {
             onNext={goToNextScreen}
           />
         </Grid>
+        <Hidden mdDown>
+          <Grid item xs={12} md={6} order={invertItems ? 1 : 2}>
+            <AppImageWithText
+              url={`/sign_up/step${currentScreen}.png`}
+              style={{ width: "100%" }}
+              textVariant={currentScreen === 4 ? "h3" : "h2"}
+              text={getTextForScreen(currentScreen)}
+            />
+          </Grid>
+        </Hidden>
       </Grid>
     </Container>
   );

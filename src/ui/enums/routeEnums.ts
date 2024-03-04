@@ -6,6 +6,7 @@
 export enum MainRoutes {
     HOME = '/',
     PRICING = '/pricing',
+    OFFERS = '/offers',
     ABOUT_US = '/about-us',
     SIGN_IN = '/sign-in',
     SIGN_UP = '/sign-up'

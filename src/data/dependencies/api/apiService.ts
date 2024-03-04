@@ -1,8 +1,8 @@
 import { DataResponse } from "@data/entities/dataResponse";
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 const timeout = 10000;
-const retries = 3;
+const retries = 6;
 const retryInterval = 10000;
 
 export class ApiService {
@@ -13,6 +13,18 @@ export class ApiService {
   }
 
   public async get<T>(url: string): Promise<DataResponse<T>> {
+    return this.request<T>(() => this.axiosInstance.get<T>(url, { timeout }));
+  }
+
+  public async post<T>(url: string, data: any): Promise<DataResponse<T>> {
+    return this.request<T>(() =>
+      this.axiosInstance.post<T>(url, data, { timeout })
+    );
+  }
+
+  private async request<T>(
+    requestFunction: () => Promise<AxiosResponse<T>>
+  ): Promise<DataResponse<T>> {
     let returnValue: DataResponse<T> = {
       data: undefined,
       message: "",
@@ -21,10 +33,10 @@ export class ApiService {
 
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
-        const response = await this.axiosInstance.get<T>(url, { timeout });
+        const response = await requestFunction();
         returnValue = {
           message: "",
-          status: true,
+          status: response.status === 200,
           data: response.data,
         };
         break;
