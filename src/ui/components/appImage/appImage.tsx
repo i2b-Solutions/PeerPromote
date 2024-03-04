@@ -9,10 +9,12 @@ export const AppImage = ({
   url,
   style,
   onImageLoad,
+  description
 }: {
   url: string;
   style?: React.CSSProperties;
   onImageLoad: (loaded: boolean) => void;
+  description: string;
 }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -24,10 +26,12 @@ export const AppImage = ({
   useEffect(() => {
     setLoaded(false);
     onImageLoad(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   return (
     <img
+      alt={description}
       src={createImageAssetUrl(url)}
       style={{ ...style, display: loaded ? "block" : "none" }}
       onLoad={handleImageLoad}
@@ -39,11 +43,13 @@ export const AppImageWithText = ({
   url,
   style,
   text,
-  textVariant = "h2",
+  description,
+  textVariant = "h2"
 }: {
   url: string;
   style?: React.CSSProperties;
   text: string;
+  description: string;
   textVariant?: TypographyProps["variant"];
 }) => {
   const { t } = useTranslation();
@@ -56,6 +62,7 @@ export const AppImageWithText = ({
   return (
     <Box sx={{ position: "relative", ...style }}>
       <AppImage
+        description={description}
         url={url}
         style={{ width: "100%", height: "auto" }}
         onImageLoad={handleImageLoad}
@@ -75,7 +82,7 @@ export const AppImageWithText = ({
             textShadow: "4px 4px 8px rgba(0, 0, 0, 1)",
             paddingLeft: "2rem",
             paddingRight: "2rem",
-            display: "block",
+            display: "block"
           }}
         >
           {t(text)}

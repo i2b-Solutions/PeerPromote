@@ -25,7 +25,7 @@ const getTextForScreen = (currentScreen: number): string => {
 
 const SlideWrapper = ({
   slideKey,
-  children,
+  children
 }: {
   slideKey: string;
   children: React.ReactElement<any, any>;
@@ -46,7 +46,7 @@ const SlideWrapper = ({
 
 const GenerateSlide = ({
   component,
-  slideKey,
+  slideKey
 }: {
   component: JSX.Element;
   slideKey: string;
@@ -57,7 +57,7 @@ const GenerateSlide = ({
 const ScreenNavigator = ({
   screen,
   onBack,
-  onNext,
+  onNext
 }: {
   screen: number;
   onBack: () => void;
@@ -138,6 +138,7 @@ const SignUpScreen = () => {
         <Hidden mdDown>
           <Grid item xs={12} md={6} order={invertItems ? 1 : 2}>
             <AppImageWithText
+              description={getTextForScreen(currentScreen)}
               url={`/sign_up/step${currentScreen}.png`}
               style={{ width: "100%" }}
               textVariant={currentScreen === 4 ? "h3" : "h2"}

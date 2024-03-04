@@ -17,7 +17,8 @@ const WelcomeFlowScreen = ({ onNext }: { onNext: () => void }) => {
 
   useEffect(() => {
     registrationStore.resetStore();
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box textAlign={"left"}>

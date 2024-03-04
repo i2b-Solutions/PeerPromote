@@ -9,10 +9,8 @@ import { resizeImage } from "@ui/helpers/assetHelpers";
 import { useState } from "react";
 import { SignUpController } from "@domain/controllers/signUpController/signUpController";
 import {
-  RegisterUserRequest,
-  RegisterUserResponse,
+  RegisterUserRequest
 } from "@domain/entities/signUpEntities";
-import { Data } from "@domain/entities/data";
 import { STATUS } from "@domain/entities/status";
 
 const TitleValue = ({ title, value }: { title: string; value: string }) => {
@@ -39,7 +37,6 @@ const SelfieImage = ({ selfie }: { selfie?: File }) => {
   return (
     <Box textAlign="center">
       {" "}
-      {/* Añade esta línea */}
       <img
         src={URL.createObjectURL(selfie)}
         alt="Selfie"
