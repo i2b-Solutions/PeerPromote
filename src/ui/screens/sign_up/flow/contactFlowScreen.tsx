@@ -96,17 +96,21 @@ const ContactFlowScreen = ({
 
   const handleOnNext = async () => {
     setLoading(true);
+    setFieldError((prevFieldError) => ({
+      ...prevFieldError,
+      submit: "",
+    }));
 
-    const response = await SignUpController.checkEmailAvailability(
+    const response = await SignUpController.isEmailAvailable(
       registrationStore.email
     );
 
     if (response.status === STATUS.OK) {
-      if (response.isAvailable) onNext();
+      if (response.data.isAvailable) onNext();
       else {
         setFieldError((prevFieldError) => ({
           ...prevFieldError,
-          submit: "errors.email_exists",
+          email: "errors.email_exists"
         }));
       }
     } else {

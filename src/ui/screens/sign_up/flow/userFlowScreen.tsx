@@ -179,13 +179,17 @@ const UserFlowScreen = ({
 
   const handleOnNext = async () => {
     setLoading(true);
+    setFieldError((prevFieldError) => ({
+      ...prevFieldError,
+      submit: ""
+    }));
 
-    const response = await SignUpController.checkUserAvailability(
+    const response = await SignUpController.isUserAvailable(
       registrationStore.username
     );
 
     if (response.status === STATUS.OK) {
-      if (response.isAvailable) onNext();
+      if (response.data.isAvailable) onNext();
       else {
         setFieldError((prevFieldError) => ({
           ...prevFieldError,

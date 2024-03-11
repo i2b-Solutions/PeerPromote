@@ -1,17 +1,17 @@
 import { RegisterUserRequest } from "@domain/entities/signUpEntities";
 import {
-  checkEmailAvailabilityUseCase,
-  checkUsernameAvailabilityUseCase,
+  isEmailAvailableUseCase,
+  isUsernameAvailableUseCase,
   registerUserUseCase,
 } from "@domain/useCases/signUpUseCases";
 
 export class SignUpController {
-  static async checkUserAvailability(username: string) {
-    return await checkUsernameAvailabilityUseCase(username);
+  static async isUserAvailable(username: string) {
+    return await isUsernameAvailableUseCase(username);
   }
 
-  static async checkEmailAvailability(email: string) {
-    return await checkEmailAvailabilityUseCase(email);
+  static async isEmailAvailable(email: string) {
+    return await isEmailAvailableUseCase(email);
   }
 
   static async registerUser(payload: RegisterUserRequest) {

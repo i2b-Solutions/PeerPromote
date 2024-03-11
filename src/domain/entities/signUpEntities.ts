@@ -1,21 +1,3 @@
-export type UserAvailable = {
-  success: boolean;
-  data: {
-    error: string;
-    register: boolean;
-    message: string;
-  };
-};
-
-export type EmailAvailable = {
-  success: boolean;
-  data: {
-    error: string;
-    register: boolean;
-    message: string;
-  };
-};
-
 export type RegisterUserRequest = {
   username: string;
   password: string;
@@ -39,13 +21,6 @@ export type RegisterUserRequest = {
 };
 
 export type RegisterUserResponse = {
-  success: boolean;
-  data: {
-    error: boolean;
-    message: string;
-    request: string;
-    UserID: number;
-    PersonID: number;
-    Username: string;
-  };
+  userId: string;
+  username: string;
 };

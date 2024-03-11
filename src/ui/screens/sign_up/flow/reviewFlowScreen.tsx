@@ -8,10 +8,9 @@ import { calculateAge } from "@ui/helpers/dateHelpers";
 import { resizeImage } from "@ui/helpers/assetHelpers";
 import { useState } from "react";
 import { SignUpController } from "@domain/controllers/signUpController/signUpController";
-import {
-  RegisterUserRequest
-} from "@domain/entities/signUpEntities";
+import { RegisterUserRequest } from "@domain/entities/signUpEntities";
 import { STATUS } from "@domain/entities/status";
+import useSessionStore from "@ui/stores/sessionStore";
 
 const TitleValue = ({ title, value }: { title: string; value: string }) => {
   return (
@@ -45,7 +44,7 @@ const SelfieImage = ({ selfie }: { selfie?: File }) => {
           height: "7rem",
           borderRadius: "50%",
           objectFit: "cover",
-          border: `0.2rem solid ${Colors.main.darkBlue}`,
+          border: `0.2rem solid ${Colors.main.darkBlue}`
         }}
       />
     </Box>
@@ -54,13 +53,14 @@ const SelfieImage = ({ selfie }: { selfie?: File }) => {
 
 const ReviewFlowScreen = ({
   onNext,
-  onBack,
+  onBack
 }: {
   onNext: () => void;
   onBack: () => void;
 }) => {
   const { t } = useTranslation();
   const registrationStore = useRegistrationStore();
+  const sessionStore = useSessionStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -82,12 +82,12 @@ const ReviewFlowScreen = ({
       email: registrationStore.email,
       area: registrationStore.area,
       phone: registrationStore.phone,
-      selfie: resizedSelfie.data,
+      selfie: resizedSelfie.data
     };
 
     const response = await SignUpController.registerUser(payload);
 
-    if (response.status === STATUS.OK && !response.data.data.error) {
+    if (response.status === STATUS.OK) {
       onNext();
     } else {
       setError(true);
@@ -157,7 +157,7 @@ const ReviewFlowScreen = ({
             mb: "1rem",
             mt: "1rem",
             width: "100%",
-            textAlign: "center",
+            textAlign: "center"
           }}
         >
           {t("errors.try_again")}

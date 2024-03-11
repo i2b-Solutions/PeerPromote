@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 import ConnectSection from './components/connectComponent';
 import StatisticsSection from './components/statisticsComponent';
 import { Colors } from '@theme/colors';

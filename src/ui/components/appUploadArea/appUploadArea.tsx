@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
-import styled from '@emotion/styled';
+import styled from "@emotion/styled"
 import { Colors, colorWithOpacity } from '@theme/colors';
 import ClearIcon from '@mui/icons-material/Clear';
 import { PoppinsFontWeights } from '@theme/fontWeights';

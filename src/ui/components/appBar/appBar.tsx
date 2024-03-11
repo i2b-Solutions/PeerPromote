@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { AppBar, Box, Container, Hidden, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Colors } from "@theme/colors";
@@ -9,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useLanguageStore } from "@ui/stores/languageStore";
 import AppPillButton from "@components/appButton/pillButton";
+import styled from "@emotion/styled";
 
 /**
  * Styled component for the upper mobile toolbar.

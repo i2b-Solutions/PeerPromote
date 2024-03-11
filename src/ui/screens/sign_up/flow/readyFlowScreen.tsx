@@ -13,8 +13,8 @@ const Wrapper = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     paddingLeft: "4rem",
-    paddingRight: "4rem",
-  },
+    paddingRight: "4rem"
+  }
 }));
 
 const ReadyFlowScreen = () => {
@@ -39,6 +39,7 @@ const ReadyFlowScreen = () => {
 
       <AppSquareButton
         onClick={() => {
+          registrationStore.resetStore();
           navigate(MainRoutes.OFFERS);
         }}
         variation="outline"

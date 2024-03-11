@@ -3,50 +3,47 @@ import {
   EmailAvailableResponseData,
   RegisterUserRequestData,
   RegisterUserResponseData,
-  UserAvailableResponseData,
+  UserAvailableResponseData
 } from "@data/entities/signUpEntities";
+import { IsAvailable } from "@domain/entities/commonEntities";
 import { Data } from "@domain/entities/data";
 import {
-  EmailAvailable,
   RegisterUserRequest,
-  RegisterUserResponse,
-  UserAvailable,
+  RegisterUserResponse
 } from "@domain/entities/signUpEntities";
 import { STATUS } from "@domain/entities/status";
 
 export const convertDataToUserAvailableResponse = (
   response: DataResponse<UserAvailableResponseData>
-): Data<UserAvailable> => {
+): Data<IsAvailable> => {
   const { data, message, status } = response;
+  const isError = data?.data?.error === "true";
+  const hasData = data?.data?.register !== undefined;
+  const isRegistered = data?.data?.register ?? true;
+
   return {
     data: {
-      data: {
-        error: data?.data?.error || "",
-        message: data?.data?.message || "",
-        register: data?.data?.register || false,
-      },
-      success: data?.success || false,
+      isAvailable: !isRegistered
     },
-    message: message,
-    status: status ? STATUS.OK : STATUS.ERROR,
+    message: data?.data?.message || message,
+    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
   };
 };
 
 export const convertDataToEmailAvailableResponse = (
   response: DataResponse<EmailAvailableResponseData>
-): Data<EmailAvailable> => {
+): Data<IsAvailable> => {
   const { data, message, status } = response;
+  const isError = data?.data?.error === "true";
+  const isRegistered = data?.data?.register ?? true;
+  const hasData = data?.data?.register !== undefined;
+
   return {
     data: {
-      data: {
-        error: data?.data?.error || "",
-        message: data?.data?.message || "",
-        register: data?.data?.register || false,
-      },
-      success: data?.success || false,
+      isAvailable: !isRegistered
     },
-    message: message,
-    status: status ? STATUS.OK : STATUS.ERROR,
+    message: data?.data?.message || message,
+    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
   };
 };
 
@@ -65,7 +62,7 @@ export const convertRegisterUserRequestToData = (
     email: request.email,
     area: request.area,
     Phone: request.phone,
-    selfie: request.selfie,
+    selfie: request.selfie
   };
 };
 
@@ -73,19 +70,15 @@ export const convertDataToRegisterUserResponse = (
   response: DataResponse<RegisterUserResponseData>
 ): Data<RegisterUserResponse> => {
   const { data, message, status } = response;
+  const isError = data?.data?.error ?? false;
+  const hasData = !!data?.data?.Username && !!data.data.UserID;
+
   return {
     data: {
-      data: {
-        error: data?.data?.error || false,
-        message: data?.data?.message || "",
-        PersonID: data?.data?.PersonID || -1,
-        request: data?.data?.request || "",
-        UserID: data?.data?.UserID || -1,
-        Username: data?.data?.Username || "",
-      },
-      success: data?.success || false,
+      userId: `${data?.data?.UserID}` || "",
+      username: data?.data?.Username || ""
     },
-    message: message,
-    status: status ? STATUS.OK : STATUS.ERROR,
+    message: data?.data?.message || message,
+    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
   };
 };

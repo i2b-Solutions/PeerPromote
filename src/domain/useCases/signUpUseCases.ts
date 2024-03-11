@@ -1,43 +1,30 @@
 import {
   postEmailAvailabilityData,
   postRegisterUserData,
-  postUsernameAvailabilityData,
+  postUsernameAvailabilityData
 } from "@data/services/signUp/signUpService";
 import {
   convertDataToEmailAvailableResponse,
   convertDataToRegisterUserResponse,
   convertDataToUserAvailableResponse,
-  convertRegisterUserRequestToData,
+  convertRegisterUserRequestToData
 } from "@domain/converters/signUpConverters";
+import { IsAvailable } from "@domain/entities/commonEntities";
+import { Data } from "@domain/entities/data";
 import { RegisterUserRequest } from "@domain/entities/signUpEntities";
-import { STATUS } from "@domain/entities/status";
 
-export const checkUsernameAvailabilityUseCase = async (
+export const isUsernameAvailableUseCase = async (
   username: string
-): Promise<{
-  status: STATUS;
-  message: string;
-  isAvailable: boolean;
-}> => {
+): Promise<Data<IsAvailable>> => {
   const response = await postUsernameAvailabilityData({ user: username });
-  const { data, message, status } =
-    convertDataToUserAvailableResponse(response);
-  return {
-    status,
-    message: data.data.message || message,
-    isAvailable: !data.data.register,
-  };
+  return convertDataToUserAvailableResponse(response);
 };
 
-export const checkEmailAvailabilityUseCase = async (email: string) => {
+export const isEmailAvailableUseCase = async (
+  email: string
+): Promise<Data<IsAvailable>> => {
   const response = await postEmailAvailabilityData({ email: email });
-  const { data, message, status } =
-    convertDataToEmailAvailableResponse(response);
-  return {
-    status,
-    message: data.data.message || message,
-    isAvailable: !data.data.register,
-  };
+  return convertDataToEmailAvailableResponse(response);
 };
 
 export const registerUserUseCase = async (payload: RegisterUserRequest) => {
