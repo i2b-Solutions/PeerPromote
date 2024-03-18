@@ -1,11 +1,18 @@
 import AppButton from "@components/appButton/appButton";
 import AppSquareButton from "@components/appButton/squareButton";
 import AppClickableText from "@components/appClickableText/appClickableText";
+import { AppImage } from "@components/appImage/appImage";
 import AppTextField from "@components/appTextField/appTextField";
 import { STATUS } from "@domain/entities/status";
 import { signInUserUseCase } from "@domain/useCases/signInUseCases";
 import styled from "@emotion/styled";
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  Container,
+  Grid,
+  Hidden,
+  Typography
+} from "@mui/material";
 import { Colors } from "@theme/colors";
 import { PoppinsFontWeights } from "@theme/fontWeights";
 import { MainRoutes } from "@ui/enums/routeEnums";
@@ -46,13 +53,19 @@ const SignInScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [fieldValues, setFieldValues] = useState(InitialFieldValues);
-  const [status, setStatus] = useState(STATUS.INITIAL);
+  const [status, setStatus] = useState({
+    status: STATUS.INITIAL,
+    message: ""
+  });
   const [shouldAdvance, setShouldAdvance] = useState(false);
   const sessionStore = useSessionStore();
 
   const handleLogin = async () => {
-    if (status === STATUS.LOADING) return;
-    setStatus(STATUS.LOADING);
+    if (status.status === STATUS.LOADING) return;
+    setStatus({
+      message: "",
+      status: STATUS.LOADING
+    });
 
     const response = await signInUserUseCase({
       pass: fieldValues.password.value,
@@ -60,13 +73,25 @@ const SignInScreen = () => {
     });
 
     if (response.status === STATUS.OK) {
-      sessionStore.setValue({
-        userId: response.data.userId,
-        username: response.data.username
-      });
-      navigate(MainRoutes.OFFERS);
+      if (response.data.loggedIn) {
+        sessionStore.setValue({
+          userId: response.data.userId,
+          username: response.data.username,
+          loggedIn: response.data.loggedIn,
+          isCompany: response.data.isCompany
+        });
+        navigate(MainRoutes.OFFERS);
+      } else {
+        setStatus({
+          message: "errors.wrong_credentials",
+          status: STATUS.ERROR
+        });
+      }
     } else {
-      setStatus(STATUS.ERROR);
+      setStatus({
+        message: "errors.try_again",
+        status: STATUS.ERROR
+      });
     }
   };
 
@@ -93,7 +118,12 @@ const SignInScreen = () => {
 
   return (
     <Container sx={{ mt: 4 }}>
-      <Grid container spacing={3}>
+      <Grid
+        container
+        justifyContent={"center"}
+        alignItems={"center"}
+        spacing={3}
+      >
         <Grid item xs={12} md={5} sx={{ textAlign: "center" }}>
           <Typography
             variant="h5"
@@ -145,15 +175,30 @@ const SignInScreen = () => {
             onClick={() => {}}
           />
 
+          {status.status === STATUS.ERROR && (
+            <Typography
+              variant="body2"
+              color={Colors.main.red}
+              sx={{
+                mb: "1rem",
+                mt: "1rem",
+                width: "100%",
+                textAlign: "center"
+              }}
+            >
+              {t(status.message)}
+            </Typography>
+          )}
+
           {/* Sign-in button */}
           <AppSquareButton
             sx={{ mt: "1rem", color: Colors.main.white }}
             onClick={handleLogin}
-            disabled={!shouldAdvance || status === STATUS.LOADING}
+            disabled={!shouldAdvance || status.status === STATUS.LOADING}
             palette="custom"
             customPalette={{ mainColor: Colors.main.black }}
           >
-            {status === STATUS.LOADING ? (
+            {status.status === STATUS.LOADING ? (
               <CircularProgress
                 size={24}
                 sx={{ color: Colors.main.mediumGrey }}
@@ -176,21 +221,6 @@ const SignInScreen = () => {
             />
           </Typography>
 
-          {status === STATUS.ERROR && (
-            <Typography
-              variant="body2"
-              color={Colors.main.red}
-              sx={{
-                mb: "1rem",
-                mt: "1rem",
-                width: "100%",
-                textAlign: "center"
-              }}
-            >
-              {t("errors.try_again")}
-            </Typography>
-          )}
-
           {/* Create account button */}
           <AppSquareButton
             onClick={() => {
@@ -204,6 +234,15 @@ const SignInScreen = () => {
             {t("sign_in_screen.create_account")}
           </AppSquareButton>
         </Grid>
+        <Hidden mdDown>
+          <Grid item md={6}>
+            <AppImage
+              description="Sign in"
+              url={"/sign_in/step1.png"}
+              style={{ width: "100%" }}
+            />
+          </Grid>
+        </Hidden>
       </Grid>
     </Container>
   );

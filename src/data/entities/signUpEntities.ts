@@ -29,7 +29,7 @@ export type RegisterUserRequestData = {
   pass: string;
   confirmPassword: string;
   CountryID: string;
-  isCompany: boolean;
+  IsCompany: number;
   CityID: number;
   languages: {
     lang: string;

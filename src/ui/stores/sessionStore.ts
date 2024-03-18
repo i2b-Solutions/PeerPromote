@@ -4,6 +4,8 @@ import { create } from "zustand";
 type SessionStoreProps = {
   username: string;
   userId: string;
+  loggedIn: boolean;
+  isCompany: boolean;
 };
 
 type SessionStoreSetters = {
@@ -14,21 +16,22 @@ type SessionStore = SessionStoreProps & SessionStoreSetters;
 
 const defaultValues: SessionStoreProps = {
   username: "",
-  userId: ""
+  userId: "",
+  loggedIn: false,
+  isCompany: false
 };
 
 const useSessionStore = create<SessionStore>((set) => {
   return {
     ...defaultValues,
     setValue: (value: SessionStoreProps) => {
-      set({
-        userId: value.userId,
-        username: value.username
-      });
+      set(value);
 
       SessionController.setStoredSession({
         userId: value.userId,
-        username: value.username
+        username: value.username,
+        loggedIn: value.loggedIn,
+        isCompany: value.isCompany
       });
     }
   };

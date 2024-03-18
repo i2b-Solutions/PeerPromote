@@ -18,7 +18,6 @@ export const convertDataToUserAvailableResponse = (
 ): Data<IsAvailable> => {
   const { data, message, status } = response;
   const isError = data?.data?.error === "true";
-  const hasData = data?.data?.register !== undefined;
   const isRegistered = data?.data?.register ?? true;
 
   return {
@@ -26,7 +25,7 @@ export const convertDataToUserAvailableResponse = (
       isAvailable: !isRegistered
     },
     message: data?.data?.message || message,
-    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
+    status: status && !isError ? STATUS.OK : STATUS.ERROR
   };
 };
 
@@ -36,14 +35,13 @@ export const convertDataToEmailAvailableResponse = (
   const { data, message, status } = response;
   const isError = data?.data?.error === "true";
   const isRegistered = data?.data?.register ?? true;
-  const hasData = data?.data?.register !== undefined;
 
   return {
     data: {
       isAvailable: !isRegistered
     },
     message: data?.data?.message || message,
-    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
+    status: status && !isError ? STATUS.OK : STATUS.ERROR
   };
 };
 
@@ -56,7 +54,7 @@ export const convertRegisterUserRequestToData = (
     confirmPassword: request.confirmPassword,
     CountryID: request.countryId.toUpperCase(),
     CityID: request.stateId,
-    isCompany: request.isCompany,
+    IsCompany: request.isCompany ? 1 : 0,
     languages: request.languages.map((language) => ({ lang: language.id })),
     birthdate: request.birthdate,
     email: request.email,
@@ -71,7 +69,6 @@ export const convertDataToRegisterUserResponse = (
 ): Data<RegisterUserResponse> => {
   const { data, message, status } = response;
   const isError = data?.data?.error ?? false;
-  const hasData = !!data?.data?.Username && !!data.data.UserID;
 
   return {
     data: {
@@ -79,6 +76,6 @@ export const convertDataToRegisterUserResponse = (
       username: data?.data?.Username || ""
     },
     message: data?.data?.message || message,
-    status: status && !isError && hasData ? STATUS.OK : STATUS.ERROR
+    status: status && !isError ? STATUS.OK : STATUS.ERROR
   };
 };

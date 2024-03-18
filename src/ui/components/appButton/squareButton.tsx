@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, CircularProgress } from "@mui/material";
 import { Colors } from "@theme/colors";
 import React from "react";
 
@@ -14,6 +14,7 @@ type AppSquareButtonProps = ButtonProps & {
   variation?: SquareButtonVariation;
   disabled?: boolean;
   customPalette?: SquareButtonCustomPalette;
+  loading?: boolean;
   children: React.ReactNode;
 };
 
@@ -27,7 +28,8 @@ const getStyle = (
     return {
       backgroundColor: Colors.main.lightGrey,
       borderColor: Colors.main.lightGrey,
-      border: "none"
+      border: "none",
+      color: Colors.main.mediumGrey
     };
 
   if (palette === "secondary" && variation === "fill") {
@@ -76,15 +78,17 @@ const AppSquareButton: React.FC<AppSquareButtonProps> = ({
     mainColor: Colors.main.blue,
     secondaryColor: Colors.main.purple
   },
+  loading = false,
   children,
   sx,
   ...props
 }) => {
-  const customStyle = getStyle(palette, variation, disabled, customPalette);
+  const isDisabled = disabled || loading;
+  const customStyle = getStyle(palette, variation, isDisabled, customPalette);
   return (
     <Button
       disableRipple
-      disabled={disabled}
+      disabled={isDisabled}
       sx={{
         width: "100%",
         minHeight: "3.2rem",
@@ -96,7 +100,11 @@ const AppSquareButton: React.FC<AppSquareButtonProps> = ({
       }}
       {...props}
     >
-      {children}
+      {loading ? (
+        <CircularProgress size={24} sx={{ color: customStyle.color }} />
+      ) : (
+        children
+      )}
     </Button>
   );
 };

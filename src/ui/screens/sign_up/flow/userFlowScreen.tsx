@@ -107,6 +107,8 @@ const UserFlowScreen = ({
           }
         }
 
+        const isBirthdateValid = (!!day && !!month && !!year && isDateValid) || registrationStore.isCompany;
+
         const shouldAdvance =
           !!username &&
           !!password &&
@@ -115,10 +117,7 @@ const UserFlowScreen = ({
           !!countryId &&
           !!stateId &&
           !!languages.length &&
-          !!day &&
-          !!month &&
-          !!year &&
-          isDateValid;
+          isBirthdateValid;
 
         setCanAdvance(shouldAdvance);
         if (shouldAdvance) setFieldError({ ...initialFieldErrors });
@@ -266,7 +265,11 @@ const UserFlowScreen = ({
           color={Colors.main.darkBlue}
           sx={{ mb: "1.5rem" }}
         >
-          {t("sign_up_screen.register_as_creator")}
+          {t(
+            registrationStore.isCompany
+              ? "sign_up_screen.register_as_business"
+              : "sign_up_screen.register_as_creator"
+          )}
         </Typography>
         <AppTextField
           value={registrationStore.username}
@@ -432,66 +435,70 @@ const UserFlowScreen = ({
         />
       </Grid>
 
-      <Grid item xs={12}>
-        <Typography
-          variant="h5"
-          fontWeight={PoppinsFontWeights.BOLD}
-          color={Colors.main.blue}
-          sx={{ mb: "1rem", mt: "1rem" }}
-        >
-          2. {t("sign_up_screen.birthdate")}
-        </Typography>
-      </Grid>
+      {!registrationStore.isCompany && (
+        <>
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              fontWeight={PoppinsFontWeights.BOLD}
+              color={Colors.main.blue}
+              sx={{ mb: "1rem", mt: "1rem" }}
+            >
+              2. {t("sign_up_screen.birthdate")}
+            </Typography>
+          </Grid>
 
-      <Grid item xs={3}>
-        <AppTextField
-          value={registrationStore.birthdate.day || ""}
-          onBlur={() => {
-            checkForm(FieldNames.DAY);
-          }}
-          error={!!fieldError.day}
-          type="tel"
-          label={t("fields.day")}
-          variant="outlined"
-          fullWidth
-          onChange={(e) => {
-            handleBirthChange(e.target.value, FieldNames.DAY);
-          }}
-          sx={{ mb: 2 }}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <AppTextField
-          value={registrationStore.birthdate.month || ""}
-          onBlur={() => {
-            checkForm(FieldNames.MONTH);
-          }}
-          error={!!fieldError.month}
-          type="tel"
-          label={t("fields.month")}
-          variant="outlined"
-          fullWidth
-          onChange={(e) => {
-            handleBirthChange(e.target.value, FieldNames.MONTH);
-          }}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <AppTextField
-          value={registrationStore.birthdate.year || ""}
-          onBlur={() => {
-            checkForm(FieldNames.YEAR);
-          }}
-          error={!!fieldError.year}
-          type="tel"
-          label={t("fields.year")}
-          variant="outlined"
-          fullWidth
-          onChange={(e) => {
-            handleBirthChange(e.target.value, FieldNames.YEAR);
-          }}
-        />
-      </Grid>
+          <Grid item xs={3}>
+            <AppTextField
+              value={registrationStore.birthdate.day || ""}
+              onBlur={() => {
+                checkForm(FieldNames.DAY);
+              }}
+              error={!!fieldError.day}
+              type="tel"
+              label={t("fields.day")}
+              variant="outlined"
+              fullWidth
+              onChange={(e) => {
+                handleBirthChange(e.target.value, FieldNames.DAY);
+              }}
+              sx={{ mb: 2 }}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <AppTextField
+              value={registrationStore.birthdate.month || ""}
+              onBlur={() => {
+                checkForm(FieldNames.MONTH);
+              }}
+              error={!!fieldError.month}
+              type="tel"
+              label={t("fields.month")}
+              variant="outlined"
+              fullWidth
+              onChange={(e) => {
+                handleBirthChange(e.target.value, FieldNames.MONTH);
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <AppTextField
+              value={registrationStore.birthdate.year || ""}
+              onBlur={() => {
+                checkForm(FieldNames.YEAR);
+              }}
+              error={!!fieldError.year}
+              type="tel"
+              label={t("fields.year")}
+              variant="outlined"
+              fullWidth
+              onChange={(e) => {
+                handleBirthChange(e.target.value, FieldNames.YEAR);
+              }}
+            />
+          </Grid>
+        </>
+      )}
 
       {!!fieldError.birthdate && (
         <Typography

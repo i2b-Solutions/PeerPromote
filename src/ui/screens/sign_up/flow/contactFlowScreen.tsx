@@ -137,14 +137,14 @@ const ContactFlowScreen = ({
           color={Colors.main.blue}
           sx={{ mb: "1rem" }}
         >
-          3. {t("sign_up_screen.contact_info")}
+          {registrationStore.isCompany ? 2 : 3}. {t("sign_up_screen.contact_info")}
         </Typography>
         <Typography
           variant="body1"
           color={Colors.main.darkBlue}
           sx={{ mb: "1.5rem" }}
         >
-          {t("sign_up_screen.complete_info")}
+          {t(registrationStore.isCompany ? "sign_up_screen.complete_info_company":"sign_up_screen.complete_info")}
         </Typography>
       </Grid>
 
@@ -213,7 +213,7 @@ const ContactFlowScreen = ({
           color={Colors.main.blue}
           sx={{ mt: "1rem", mb: "1rem" }}
         >
-          4. {t("sign_up_screen.profile_pic")}
+          {registrationStore.isCompany ? 3 : 4}. {t("sign_up_screen.profile_pic")}
         </Typography>
         <FileUploadArea
           style={{ marginBottom: "1rem" }}

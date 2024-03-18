@@ -1,6 +1,8 @@
 import { SupportedLanguage } from "@domain/entities/languageEntities";
 import { create } from "zustand";
 
+const userNonAllowedCharacters = /[^a-zA-Z0-9_]/g;
+
 type RegistrationStore = {
   // Step 1
   username: string;
@@ -48,7 +50,7 @@ const defaultValues = {
     countryId: "",
     countryName: "",
     stateId: 0,
-    stateName: "",
+    stateName: ""
   },
   languages: [],
   birthdate: { day: 0, month: 0, year: 0 },
@@ -56,7 +58,7 @@ const defaultValues = {
   email: "",
   area: "",
   phone: "",
-  selfie: undefined,
+  selfie: undefined
 };
 
 const useRegistrationStore = create<RegistrationStore>((set) => {
@@ -65,18 +67,20 @@ const useRegistrationStore = create<RegistrationStore>((set) => {
     ...defaultValues,
     // Setters
     setUsername: (value: string) =>
-      set({ username: value.toLowerCase().trim() }),
+      set({
+        username: value.toLowerCase().trim().replace(userNonAllowedCharacters, "")
+      }),
     setPassword: (value: string) => set({ password: value.trim() }),
     setConfirmPassword: (value: string) =>
       set({ confirmPassword: value.trim() }),
     setIsCompany: (value: boolean) => set({ isCompany: value }),
     setCountry: (id: string, name: string) =>
       set((state) => ({
-        location: { ...state.location, countryId: id, countryName: name },
+        location: { ...state.location, countryId: id, countryName: name }
       })),
     setState: (id: number, name: string) =>
       set((state) => ({
-        location: { ...state.location, stateId: id, stateName: name },
+        location: { ...state.location, stateId: id, stateName: name }
       })),
     setLanguages: (values: SupportedLanguage[]) => set({ languages: values }),
     setBirthDay: (value: number) =>
@@ -89,7 +93,7 @@ const useRegistrationStore = create<RegistrationStore>((set) => {
     setArea: (value: string) => set({ area: value }),
     setPhone: (value: string) => set({ phone: value }),
     setSelfie: (value: File | undefined) => set({ selfie: value }),
-    resetStore: () => set({ ...defaultValues }),
+    resetStore: () => set({ ...defaultValues })
   };
 });
 

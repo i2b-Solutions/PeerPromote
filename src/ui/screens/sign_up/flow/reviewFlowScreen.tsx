@@ -103,7 +103,7 @@ const ReviewFlowScreen = ({
         color={Colors.main.blue}
         sx={{ mb: "1rem" }}
       >
-        5. {t("sign_up_screen.verify")}
+        {registrationStore.isCompany ? 4 : 5}. {t("sign_up_screen.verify")}
       </Typography>
       <Typography
         variant="body1"
@@ -120,10 +120,12 @@ const ReviewFlowScreen = ({
               title={t("fields.user")}
               value={registrationStore.username}
             />
-            <TitleValue
-              title={t("fields.age")}
-              value={calculateAge(registrationStore.birthdate).toFixed(0)}
-            />
+            {!registrationStore.isCompany && (
+              <TitleValue
+                title={t("fields.age")}
+                value={calculateAge(registrationStore.birthdate).toFixed(0)}
+              />
+            )}
             <Grid container>
               <Grid item xs={12} md={6}>
                 <TitleValue

@@ -7,6 +7,7 @@ import ReviewFlowScreen from "./flow/reviewFlowScreen";
 import AppStepIndicator from "@components/appStepIndicator/appStepIndicator";
 import ReadyFlowScreen from "./flow/readyFlowScreen";
 import { AppImageWithText } from "@components/appImage/appImage";
+import useRegistrationStore from "@ui/stores/registrationStore";
 
 const totalScreens = 5;
 
@@ -103,6 +104,14 @@ const ScreenNavigator = ({
 
 const SignUpScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
+  const registrationStore = useRegistrationStore();
+
+  const imageStyle = registrationStore.isCompany
+    ? {
+        paddingLeft: "3rem",
+        paddingRight: "3rem"
+      }
+    : { paddingLeft: "0", paddingRight: "0" };
 
   const goToNextScreen = () => {
     setCurrentScreen((prevScreen) =>
@@ -139,10 +148,24 @@ const SignUpScreen = () => {
           <Grid item xs={12} md={6} order={invertItems ? 1 : 2}>
             <AppImageWithText
               description={getTextForScreen(currentScreen)}
-              url={`/sign_up/step${currentScreen}.png`}
-              style={{ width: "100%" }}
-              textVariant={currentScreen === 4 ? "h3" : "h2"}
+              url={`/sign_up/step${currentScreen}${registrationStore.isCompany ? "_company" : ""}.${registrationStore.isCompany ? "jpg" : "png"}`}
+              style={{
+                width: "100%",
+                ...imageStyle
+              }}
+              imageBordeRadius={registrationStore.isCompany ? "1rem" : "0"}
+              textMargin={registrationStore.isCompany ? "1rem" : "4rem"}
+              textPadding={registrationStore.isCompany ? "3rem" : "2rem"}
+              textPosition={registrationStore.isCompany ? "top" : "bottom"}
+              textVariant={
+                currentScreen === 4
+                  ? registrationStore.isCompany
+                    ? "h4"
+                    : "h3"
+                  : "h2"
+              }
               text={getTextForScreen(currentScreen)}
+              shadow={registrationStore.isCompany}
             />
           </Grid>
         </Hidden>

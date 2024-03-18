@@ -11,7 +11,9 @@ export const convertDataToSessionStorage = (
   return {
     data: {
       userId: data?.userId || "",
-      username: data?.username || ""
+      username: data?.username || "",
+      loggedIn: data?.loggedIn ?? false,
+      isCompany: data?.isCompany ?? false
     },
     message: message,
     status: status ? STATUS.OK : STATUS.ERROR
@@ -20,8 +22,12 @@ export const convertDataToSessionStorage = (
 
 export const convertSessionStorageToData = ({
   userId,
-  username
+  username,
+  loggedIn,
+  isCompany
 }: SessionStorage): SessionStorageData => ({
   userId,
-  username
+  username,
+  loggedIn,
+  isCompany
 });

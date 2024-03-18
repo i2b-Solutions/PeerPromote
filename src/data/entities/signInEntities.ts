@@ -6,6 +6,8 @@ export type SignInUserRequestData = {
 export type SignInUserResponseData = {
   success?: string;
   data?: {
+    "logged-in"?: boolean;
+    IsCompany?: boolean;
     error?: string;
     message?: string;
     request?: {

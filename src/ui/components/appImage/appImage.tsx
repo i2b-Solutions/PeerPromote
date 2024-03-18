@@ -13,19 +13,19 @@ export const AppImage = ({
 }: {
   url: string;
   style?: React.CSSProperties;
-  onImageLoad: (loaded: boolean) => void;
+  onImageLoad?: (loaded: boolean) => void;
   description: string;
 }) => {
   const [loaded, setLoaded] = useState(false);
 
   const handleImageLoad = () => {
     setLoaded(true);
-    onImageLoad(true);
+    if (onImageLoad) onImageLoad(true);
   };
 
   useEffect(() => {
     setLoaded(false);
-    onImageLoad(false);
+    if (onImageLoad) onImageLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
@@ -44,16 +44,37 @@ export const AppImageWithText = ({
   style,
   text,
   description,
-  textVariant = "h2"
+  textVariant = "h2",
+  imageBordeRadius = "0",
+  textMargin = "0",
+  textPadding = "0",
+  textPosition = "top",
+  shadow = false
 }: {
   url: string;
   style?: React.CSSProperties;
   text: string;
   description: string;
   textVariant?: TypographyProps["variant"];
+  imageBordeRadius?: string;
+  textMargin?: string;
+  textPadding?: string;
+  textPosition?: "top" | "bottom";
+  shadow?: boolean;
 }) => {
   const { t } = useTranslation();
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  const positionStyle =
+    textPosition === "top"
+      ? {
+          top: 0,
+          marginTop: textMargin
+        }
+      : {
+          bottom: 0,
+          marginBottom: textMargin
+        };
 
   const handleImageLoad = (loaded: boolean) => {
     setImageLoaded(loaded);
@@ -64,7 +85,12 @@ export const AppImageWithText = ({
       <AppImage
         description={description}
         url={url}
-        style={{ width: "100%", height: "auto" }}
+        style={{
+          width: "100%",
+          height: "auto",
+          borderRadius: imageBordeRadius,
+          boxShadow: shadow ? "4px 4px 8px 0 rgba(0,0,0,0.3)" : "unset"
+        }}
         onImageLoad={handleImageLoad}
       />
       {imageLoaded && (
@@ -74,15 +100,15 @@ export const AppImageWithText = ({
           color={Colors.main.white}
           sx={{
             position: "absolute",
-            bottom: 0,
+            bottom: "unset",
             left: 0,
             width: "100%",
             textAlign: "center",
-            marginBottom: "4rem",
             textShadow: "4px 4px 8px rgba(0, 0, 0, 1)",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            display: "block"
+            paddingLeft: textPadding,
+            paddingRight: textPadding,
+            display: "block",
+            ...positionStyle
           }}
         >
           {t(text)}

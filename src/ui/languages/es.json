@@ -27,6 +27,7 @@
   "finish": "Finalizar",
   "errors": {
     "try_again": "Ha ocurrido un error. Por favor, inténtelo de nuevo.",
+    "wrong_credentials": "Las credenciales de inicio de sesión no son válidas",
     "email_exists": "Este correo electrónico ya está en uso",
     "user_exists": "Este nombre de usuario ya está en uso"
   },
@@ -51,24 +52,27 @@
   },
   "sign_up_screen": {
     "welcome": "Bienvenido a PeerPromote",
-    "we_are": "En PeerPromote, somos tu gestor digital que te ayudará a conectarte con marcas que buscan tu contenido. Completa tu perfil de usuario para acceder a las ofertas disponibles.",
+    "we_are": "En PeerPromote, somos tu gestor digital. Si eres un creador de contenido, te conectamos con empresas interesadas en tu contenido. Si eres una empresa, te facilitamos la búsqueda de creadores de contenido para colaboraciones. ¡Completa tu perfil de usuario para empezar a conectar!",
     "will_take": "¡Solo te llevará 3 minutos!",
     "as_creator": "REGISTRARSE COMO CREADOR",
-    "as_business": "REGISTRARSE COMO COMERCIO",
+    "as_business": "REGISTRARSE COMO EMPRESA",
     "user_info": "Información de Usuario",
-    "register_as_creator": "Registrate como creador y descubre marcas para colaborar",
+    "register_as_creator": "Registrate como creador y descubre empresas para colaborar",
+    "register_as_business": "Registrate como empresa y descubre creadores de contenido para colaborar",
     "birthdate": "Fecha de nacimiento",
     "contact_info": "Información de Contacto",
-    "complete_info": "Para ayudarte a conectar con marcas, necesitamos completar tu información de contacto",
+    "complete_info": "Para ayudarte a conectar con empresas, necesitamos completar tu información de contacto",
+    "complete_info_company": "Para ayudarte a conectar con creadores de contenido, necesitamos completar tu información de contacto",
     "profile_pic": "Foto de perfil",
     "verify": "Verifica tu Información",
     "all_ready": "Todo listo, verifica tu información para continuar",
     "ready": "TODO LISTO",
-    "complete": ", has terminado de configurar tu perfil de usuario. Ahora puedes explorar las ofertas de marcas reales que buscan promocionarse. Recuerda que para ponerte en contacto con ellas, es necesario que completes tu perfil profesional.",
+    "complete": ", has terminado de configurar tu perfil de usuario. Ahora puedes explorar las ofertas de empresas que buscan promocionarse. Recuerda que para ponerte en contacto con ellas, es necesario que completes tu perfil profesional.",
+    "complete_company": ", has terminado de configurar tu perfil de usuario. Ahora puedes publicar ofertas y encontrar creadores de contenido que buscan colaborar contigo. Recuerda que para ponerte en contacto con creadores, es necesario que completes tu perfil de empresa.",
     "see_offers": "Ver ofertas disponibles",
     "your_manager": "TU MANAGER DIGITAL",
     "connect": "CONECTA COLABORA PROMOCIONA",
-    "discover": "DESCUBRE MARCAS QUE DESEAN TRABAJAR CONTIGO"
+    "discover": "DESCUBRE EMPRESAS QUE DESEAN TRABAJAR CONTIGO"
   },
   "drop_image_area": {
     "drop_here": "Arrastra y suelta una imagen aquí",

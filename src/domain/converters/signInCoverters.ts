@@ -14,18 +14,22 @@ export const convertDataToSignInUserResponse = (
   response: DataResponse<SignInUserResponseData>
 ): Data<SignInUserResponse> => {
   const { message, status, data } = response;
-  
+
+  const loggedIn = data?.data?.["logged-in"] ?? false;
+  const isCompany = data?.data?.IsCompany ?? false;
   const userData = data?.data?.request?.[0] || {};
   const isError = data?.data?.error === "true";
-  const hasUserData = !!userData.UserID && !!userData.Username;
 
   return {
     data: {
+      loggedIn: loggedIn,
       userId: userData.UserID || "",
-      username: userData.Username || ""
+      username: userData.Username || "",
+      isCompany: isCompany,
+      success: data?.success === "true"
     },
     message: data?.data?.message || message,
-    status: status && !isError && hasUserData ? STATUS.OK : STATUS.ERROR
+    status: status && !isError ? STATUS.OK : STATUS.ERROR
   };
 };
 
