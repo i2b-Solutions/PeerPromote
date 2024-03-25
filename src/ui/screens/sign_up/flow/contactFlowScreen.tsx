@@ -8,20 +8,20 @@ import { useTranslation } from "react-i18next";
 import SignUpNavButtons from "../components/navButtons";
 import { PoppinsFontWeights } from "@theme/fontWeights";
 import { SignUpController } from "@domain/controllers/signUpController/signUpController";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 enum FieldNames {
   EMAIL = "email",
   AREA = "area",
   PHONE = "phone",
-  UNSET = "unset",
+  UNSET = "unset"
 }
 
 const FieldErrorNames = {
   email: "",
   area: "",
   phone: "",
-  submit: "",
+  submit: ""
 };
 
 const validateEmail = (email: string) => {
@@ -31,7 +31,7 @@ const validateEmail = (email: string) => {
 
 const ContactFlowScreen = ({
   onNext,
-  onBack,
+  onBack
 }: {
   onNext: () => void;
   onBack: () => void;
@@ -98,26 +98,27 @@ const ContactFlowScreen = ({
     setLoading(true);
     setFieldError((prevFieldError) => ({
       ...prevFieldError,
-      submit: "",
+      submit: ""
     }));
 
     const response = await SignUpController.isEmailAvailable(
       registrationStore.email
     );
 
-    if (response.status === STATUS.OK) {
-      if (response.data.isAvailable) onNext();
-      else {
+    if (response.status === STATUS.OK && response.data.isAvailable) {
+      onNext();
+    } else {
+      if (response.errorType === ERROR_TYPES.NONE) {
         setFieldError((prevFieldError) => ({
           ...prevFieldError,
           email: "errors.email_exists"
         }));
+      } else {
+        setFieldError((prevFieldError) => ({
+          ...prevFieldError,
+          submit: "errors.try_again"
+        }));
       }
-    } else {
-      setFieldError((prevFieldError) => ({
-        ...prevFieldError,
-        submit: "errors.try_again",
-      }));
     }
 
     setLoading(false);
@@ -137,14 +138,19 @@ const ContactFlowScreen = ({
           color={Colors.main.blue}
           sx={{ mb: "1rem" }}
         >
-          {registrationStore.isCompany ? 2 : 3}. {t("sign_up_screen.contact_info")}
+          {registrationStore.isCompany ? 2 : 3}.{" "}
+          {t("sign_up_screen.contact_info")}
         </Typography>
         <Typography
           variant="body1"
           color={Colors.main.darkBlue}
           sx={{ mb: "1.5rem" }}
         >
-          {t(registrationStore.isCompany ? "sign_up_screen.complete_info_company":"sign_up_screen.complete_info")}
+          {t(
+            registrationStore.isCompany
+              ? "sign_up_screen.complete_info_company"
+              : "sign_up_screen.complete_info"
+          )}
         </Typography>
       </Grid>
 
@@ -178,7 +184,7 @@ const ContactFlowScreen = ({
             handlePhoneChange(e.target.value, "area");
           }}
           InputProps={{
-            startAdornment: <InputAdornment position="start">+</InputAdornment>,
+            startAdornment: <InputAdornment position="start">+</InputAdornment>
           }}
           type="tel"
           label={t("fields.area")}
@@ -213,7 +219,8 @@ const ContactFlowScreen = ({
           color={Colors.main.blue}
           sx={{ mt: "1rem", mb: "1rem" }}
         >
-          {registrationStore.isCompany ? 3 : 4}. {t("sign_up_screen.profile_pic")}
+          {registrationStore.isCompany ? 3 : 4}.{" "}
+          {t("sign_up_screen.profile_pic")}
         </Typography>
         <FileUploadArea
           style={{ marginBottom: "1rem" }}
@@ -233,7 +240,7 @@ const ContactFlowScreen = ({
             mb: "1rem",
             mt: "1rem",
             paddingLeft: "0.5rem",
-            paddingRight: "0.5rem",
+            paddingRight: "0.5rem"
           }}
         >
           {t(fieldError.submit)}

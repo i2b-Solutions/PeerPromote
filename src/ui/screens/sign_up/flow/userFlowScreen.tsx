@@ -189,27 +189,20 @@ const UserFlowScreen = ({
       registrationStore.username
     );
 
-    if (response.status === STATUS.OK) {
-      if (response.data.isAvailable) {
-        onNext();
-      } else {
-        if (response.errorType === ERROR_TYPES.NONE) {
-          setFieldError((prevFieldError) => ({
-            ...prevFieldError,
-            username: "errors.user_exists"
-          }));
-        } else {
-          setFieldError((prevFieldError) => ({
-            ...prevFieldError,
-            submit: "errors.try_again"
-          }));
-        }
-      }
+    if (response.status === STATUS.OK && response.data.isAvailable) {
+      onNext();
     } else {
-      setFieldError((prevFieldError) => ({
-        ...prevFieldError,
-        submit: "errors.try_again"
-      }));
+      if (response.errorType === ERROR_TYPES.NONE) {
+        setFieldError((prevFieldError) => ({
+          ...prevFieldError,
+          username: "errors.user_exists"
+        }));
+      } else {
+        setFieldError((prevFieldError) => ({
+          ...prevFieldError,
+          submit: "errors.try_again"
+        }));
+      }
     }
 
     setLoading(false);
