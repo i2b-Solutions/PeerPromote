@@ -7,7 +7,7 @@ import {
   convertDataToEmailAvailableResponse,
   convertDataToRegisterUserResponse,
   convertDataToUserAvailableResponse,
-  convertRegisterUserRequestToData
+  convertRegisterUserRequestToFormData
 } from "@domain/converters/signUpConverters";
 import { IsAvailable } from "@domain/entities/commonEntities";
 import { Data } from "@domain/entities/data";
@@ -28,7 +28,7 @@ export const isEmailAvailableUseCase = async (
 };
 
 export const registerUserUseCase = async (payload: RegisterUserRequest) => {
-  const converterPayload = convertRegisterUserRequestToData(payload);
+  const converterPayload = convertRegisterUserRequestToFormData(payload);
   const response = await postRegisterUserData(converterPayload);
   return convertDataToRegisterUserResponse(response);
 };

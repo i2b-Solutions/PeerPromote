@@ -9,7 +9,7 @@ import {
 import { IsSuccessful } from "@domain/entities/commonEntities";
 import { Data } from "@domain/entities/data";
 import { SessionStorage } from "@domain/entities/sessionEntities";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const getStoredSessionUseCase = (): Data<SessionStorage> =>
   convertDataToSessionStorage(getStoredSessionData());
@@ -24,6 +24,7 @@ export const setStoredSessionUseCase = (
     message: result.message,
     data: {
       isSuccessful: result.data ?? false
-    }
+    },
+    errorType: ERROR_TYPES.NONE
   };
 };

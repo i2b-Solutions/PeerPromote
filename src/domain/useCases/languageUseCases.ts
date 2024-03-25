@@ -7,7 +7,7 @@ import {
   convertSetStoredLanguageResponseToData,
 } from "@domain/converters/language";
 import { Data } from "@domain/entities/data";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const getSystemLanguageUseCase = (): Data<string> => {
   let navigatorLanguage = navigator.language || "";
@@ -22,6 +22,7 @@ export const getSystemLanguageUseCase = (): Data<string> => {
     message: "",
     status: STATUS.OK,
     data: sanitizedLanguage,
+    errorType: ERROR_TYPES.NONE
   };
 };
 

@@ -13,7 +13,7 @@ export const postUsernameAvailabilityData = async (
   data: UserAvailableRequestData
 ) => {
   return await DataDependencyManager.apiServiceInstance.post<UserAvailableResponseData>(
-    createBackendUrl("/user/step_one"),
+    createBackendUrl("/user/check_username"),
     data
   );
 };
@@ -22,12 +22,12 @@ export const postEmailAvailabilityData = async (
   data: EmailAvailableRequestData
 ) => {
   return await DataDependencyManager.apiServiceInstance.post<EmailAvailableResponseData>(
-    createBackendUrl("/user/step_two"),
+    createBackendUrl("/user/check_email"),
     data
   );
 };
 
-export const postRegisterUserData = async (data: RegisterUserRequestData) => {
+export const postRegisterUserData = async (data: FormData) => {
   return await DataDependencyManager.apiServiceInstance.post<RegisterUserResponseData>(
     createBackendUrl("/user/register"),
     data

@@ -11,21 +11,24 @@ import {
   RegisterUserRequest,
   RegisterUserResponse
 } from "@domain/entities/signUpEntities";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
+import { convertDateToString } from "@domain/helpers/dateHelpers";
+import { getErrorType, getStatusType } from "@domain/helpers/errorHelpers";
 
 export const convertDataToUserAvailableResponse = (
   response: DataResponse<UserAvailableResponseData>
 ): Data<IsAvailable> => {
   const { data, message, status } = response;
-  const isError = data?.data?.error === "true";
-  const isRegistered = data?.data?.register ?? true;
+
+  const isAvailable = data?.data?.isAvailable === true;
+  const isError = data?.success !== true;
+  const hasData = data?.data?.isAvailable !== undefined;
 
   return {
-    data: {
-      isAvailable: !isRegistered
-    },
-    message: data?.data?.message || message,
-    status: status && !isError ? STATUS.OK : STATUS.ERROR
+    data: { isAvailable },
+    message: data?.message || message,
+    status: getStatusType(status),
+    errorType: getErrorType(status, isError, hasData)
   };
 };
 
@@ -33,49 +36,70 @@ export const convertDataToEmailAvailableResponse = (
   response: DataResponse<EmailAvailableResponseData>
 ): Data<IsAvailable> => {
   const { data, message, status } = response;
-  const isError = data?.data?.error === "true";
-  const isRegistered = data?.data?.register ?? true;
+
+  const isAvailable = data?.data?.isAvailable === true;
+  const isError = data?.success !== true;
+  const hasData = data?.data?.isAvailable !== undefined;
 
   return {
     data: {
-      isAvailable: !isRegistered
+      isAvailable: isAvailable
     },
-    message: data?.data?.message || message,
-    status: status && !isError ? STATUS.OK : STATUS.ERROR
+    message: data?.message || message,
+    status: getStatusType(status),
+    errorType: getErrorType(status, isError, hasData)
   };
 };
 
-export const convertRegisterUserRequestToData = (
+export const convertRegisterUserRequestToFormData = (
   request: RegisterUserRequest
-): RegisterUserRequestData => {
-  return {
-    user: request.username,
-    pass: request.password,
-    confirmPassword: request.confirmPassword,
-    CountryID: request.countryId.toUpperCase(),
-    CityID: request.stateId,
-    IsCompany: request.isCompany ? 1 : 0,
-    languages: request.languages.map((language) => ({ lang: language.id })),
-    birthdate: request.birthdate,
-    email: request.email,
-    area: request.area,
-    Phone: request.phone,
-    selfie: request.selfie
-  };
+): FormData => {
+  const formData = new FormData();
+
+  formData.append("user", request.username);
+  formData.append("pass", request.password);
+  formData.append("confirmPassword", request.confirmPassword);
+  formData.append("countryId", request.countryId.toUpperCase());
+  formData.append("cityId", String(request.stateId));
+  formData.append("isCompany", request.isCompany ? "1" : "0");
+
+  request.languages.forEach((language, index) => {
+    formData.append(`languages[${index}][lang]`, language.id);
+  });
+
+  formData.append(
+    "birthdate",
+    convertDateToString(
+      request.birthdate.day,
+      request.birthdate.month,
+      request.birthdate.year
+    )
+  );
+
+  formData.append("email", request.email);
+  formData.append("area", request.area);
+  formData.append("phone", request.phone);
+  formData.append("selfie", request.selfie);
+
+  return formData;
 };
 
 export const convertDataToRegisterUserResponse = (
   response: DataResponse<RegisterUserResponseData>
 ): Data<RegisterUserResponse> => {
   const { data, message, status } = response;
-  const isError = data?.data?.error ?? false;
+  const { userId, username } = data?.data || {};
+
+  const isError = data?.success !== true;
+  const hasData = !!userId && !!username;
 
   return {
     data: {
-      userId: `${data?.data?.UserID}` || "",
-      username: data?.data?.Username || ""
+      userId: `${data?.data?.userId}` || "",
+      username: data?.data?.username || ""
     },
-    message: data?.data?.message || message,
-    status: status && !isError ? STATUS.OK : STATUS.ERROR
+    message: data?.message || message,
+    status: getStatusType(status),
+    errorType: getErrorType(status, isError, hasData)
   };
 };

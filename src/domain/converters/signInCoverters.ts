@@ -8,7 +8,7 @@ import {
   SignInUserRequest,
   SignInUserResponse
 } from "@domain/entities/signInEntities";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const convertDataToSignInUserResponse = (
   response: DataResponse<SignInUserResponseData>
@@ -29,7 +29,8 @@ export const convertDataToSignInUserResponse = (
       success: data?.success === "true"
     },
     message: data?.data?.message || message,
-    status: status && !isError ? STATUS.OK : STATUS.ERROR
+    status: status && !isError ? STATUS.OK : STATUS.ERROR,
+    errorType: ERROR_TYPES.NONE
   };
 };
 

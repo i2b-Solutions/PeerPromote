@@ -9,7 +9,7 @@ import { resizeImage } from "@ui/helpers/assetHelpers";
 import { useState } from "react";
 import { SignUpController } from "@domain/controllers/signUpController/signUpController";
 import { RegisterUserRequest } from "@domain/entities/signUpEntities";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 import useSessionStore from "@ui/stores/sessionStore";
 
 const TitleValue = ({ title, value }: { title: string; value: string }) => {
@@ -87,7 +87,10 @@ const ReviewFlowScreen = ({
 
     const response = await SignUpController.registerUser(payload);
 
-    if (response.status === STATUS.OK) {
+    if (
+      response.status === STATUS.OK &&
+      response.errorType === ERROR_TYPES.NONE
+    ) {
       onNext();
     } else {
       setError(true);

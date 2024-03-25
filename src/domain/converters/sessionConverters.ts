@@ -2,7 +2,7 @@ import { DataResponse } from "@data/entities/dataResponse";
 import { SessionStorageData } from "@data/entities/sessionEntities";
 import { Data } from "@domain/entities/data";
 import { SessionStorage } from "@domain/entities/sessionEntities";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const convertDataToSessionStorage = (
   response: DataResponse<SessionStorageData>
@@ -16,7 +16,8 @@ export const convertDataToSessionStorage = (
       isCompany: data?.isCompany ?? false
     },
     message: message,
-    status: status ? STATUS.OK : STATUS.ERROR
+    status: status ? STATUS.OK : STATUS.ERROR,
+    errorType: ERROR_TYPES.NONE
   };
 };
 

@@ -1,10 +1,9 @@
 export type UserAvailableResponseData = {
-  success?: boolean;
   data?: {
-    error?: string;
-    register?: boolean;
-    message?: string;
+    isAvailable?: boolean;
   };
+  success?: boolean;
+  message?: "";
 };
 
 export type UserAvailableRequestData = {
@@ -12,12 +11,11 @@ export type UserAvailableRequestData = {
 };
 
 export type EmailAvailableResponseData = {
-  success?: boolean;
   data?: {
-    error?: string;
-    register?: boolean;
-    message?: string;
+    isAvailable?: boolean;
   };
+  success?: boolean;
+  message?: "";
 };
 
 export type EmailAvailableRequestData = {
@@ -28,31 +26,24 @@ export type RegisterUserRequestData = {
   user: string;
   pass: string;
   confirmPassword: string;
-  CountryID: string;
-  IsCompany: number;
-  CityID: number;
+  countryId: string;
+  isCompany: number;
+  cityId: number;
   languages: {
     lang: string;
   }[];
-  birthdate: {
-    day: number;
-    month: number;
-    year: number;
-  };
+  birthdate: string;
   email: string;
   area: string;
-  Phone: string;
+  phone: string;
   selfie: File;
 };
 
 export type RegisterUserResponseData = {
-  success?: boolean;
   data?: {
-    error?: boolean;
-    message?: string;
-    request?: string;
-    UserID?: number;
-    PersonID?: number;
-    Username?: string;
+    userId?: string;
+    username?: string;
   };
+  success?: boolean;
+  message?: "";
 };

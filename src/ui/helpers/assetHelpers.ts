@@ -1,5 +1,5 @@
 import { Data } from "@domain/entities/data";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 import Resizer from "react-image-file-resizer";
 
 const imageAssetDirectory = `${process.env.PUBLIC_URL}/assets/images`;
@@ -45,6 +45,7 @@ export const resizeImage = (
         data: emptyImage,
         message: "No image was provided",
         status: STATUS.ERROR,
+        errorType: ERROR_TYPES.NONE
       });
       return;
     }
@@ -68,12 +69,14 @@ export const resizeImage = (
               data: resizedFile,
               message: "Image resized successfully.",
               status: STATUS.OK,
+              errorType: ERROR_TYPES.NONE
             });
           } else {
             resolve({
               data: imageFile,
               message: "Failed to resize the image.",
               status: STATUS.ERROR,
+              errorType: ERROR_TYPES.NONE
             });
           }
         },
@@ -84,6 +87,7 @@ export const resizeImage = (
         data: imageFile,
         message: "An error occurred while resizing the image.",
         status: STATUS.ERROR,
+        errorType: ERROR_TYPES.NONE
       });
     }
   });

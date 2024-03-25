@@ -2,7 +2,7 @@ import { CountryResponse } from "@data/entities/countryResponse";
 import { DataResponse } from "@data/entities/dataResponse";
 import { Country } from "@domain/entities/country";
 import { Data } from "@domain/entities/data";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const convertCountriesResponseToData = (
   data: DataResponse<CountryResponse[]>
@@ -25,5 +25,6 @@ export const convertCountriesResponseToData = (
     data: mappedData,
     status: data.status ? STATUS.OK : STATUS.ERROR,
     message: data.message || "",
+    errorType: ERROR_TYPES.NONE
   };
 };

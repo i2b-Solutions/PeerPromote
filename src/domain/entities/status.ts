@@ -4,3 +4,10 @@ export enum STATUS {
   LOADING = "LOADING",
   ERROR = "ERROR"
 }
+
+export enum ERROR_TYPES {
+  NONE = "NONE",
+  EMPTY = "EMPTY",
+  NETWORK = "NETWORK",
+  SERVER = "SERVER"
+}

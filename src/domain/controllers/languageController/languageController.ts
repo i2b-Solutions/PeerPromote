@@ -1,11 +1,11 @@
 import { Data } from "@domain/entities/data";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 import { SYSTEM_LANGUAGES } from "@domain/enums/domainEnums";
 import { isLanguageSupported } from "@domain/helpers/languageHelpers";
 import {
   getStoredLanguageUseCase,
   getSystemLanguageUseCase,
-  setStoredLanguageUseCase,
+  setStoredLanguageUseCase
 } from "@domain/useCases/languageUseCases";
 
 export class LanguageController {
@@ -18,11 +18,13 @@ export class LanguageController {
           data: language as SYSTEM_LANGUAGES,
           message: systemLanguage.message,
           status: systemLanguage.status,
+          errorType: ERROR_TYPES.NONE
         }
       : {
           data: SYSTEM_LANGUAGES.EN,
           message: "language not supported",
           status: STATUS.ERROR,
+          errorType: ERROR_TYPES.NONE
         };
   }
 
@@ -34,12 +36,12 @@ export class LanguageController {
       ? {
           data: language as SYSTEM_LANGUAGES,
           message: storedLanguage.message,
-          status: storedLanguage.status,
+          status: storedLanguage.status
         }
       : {
           data: SYSTEM_LANGUAGES.EN,
           message: "language not supported",
-          status: STATUS.ERROR,
+          status: STATUS.ERROR
         };
   };
 
@@ -65,7 +67,7 @@ export class LanguageController {
 
     return {
       language: currentLanguage,
-      openModal: storedLanguage.status !== STATUS.OK,
+      openModal: storedLanguage.status !== STATUS.OK
     };
   };
 }

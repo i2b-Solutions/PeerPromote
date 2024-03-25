@@ -20,7 +20,7 @@ import { SUPPORTED_COUNTRIES } from "@ui/constants/locationConstants";
 import { Country, CountryState } from "@domain/entities/country";
 import { CountryController } from "@domain/controllers/countryController/countryController";
 import { SignUpController } from "@domain/controllers/signUpController/signUpController";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 const currentYear: number = new Date().getFullYear();
 
@@ -107,7 +107,9 @@ const UserFlowScreen = ({
           }
         }
 
-        const isBirthdateValid = (!!day && !!month && !!year && isDateValid) || registrationStore.isCompany;
+        const isBirthdateValid =
+          (!!day && !!month && !!year && isDateValid) ||
+          registrationStore.isCompany;
 
         const shouldAdvance =
           !!username &&
@@ -188,12 +190,20 @@ const UserFlowScreen = ({
     );
 
     if (response.status === STATUS.OK) {
-      if (response.data.isAvailable) onNext();
-      else {
-        setFieldError((prevFieldError) => ({
-          ...prevFieldError,
-          username: "errors.user_exists"
-        }));
+      if (response.data.isAvailable) {
+        onNext();
+      } else {
+        if (response.errorType === ERROR_TYPES.NONE) {
+          setFieldError((prevFieldError) => ({
+            ...prevFieldError,
+            username: "errors.user_exists"
+          }));
+        } else {
+          setFieldError((prevFieldError) => ({
+            ...prevFieldError,
+            submit: "errors.try_again"
+          }));
+        }
       }
     } else {
       setFieldError((prevFieldError) => ({

@@ -1,6 +1,6 @@
 import { DataResponse } from "@data/entities/dataResponse";
 import { Data } from "@domain/entities/data";
-import { STATUS } from "@domain/entities/status";
+import { ERROR_TYPES, STATUS } from "@domain/entities/status";
 
 export const convertGetStoredLanguageResponseToData = (
   data: DataResponse<string>
@@ -9,6 +9,7 @@ export const convertGetStoredLanguageResponseToData = (
     data: data.data || "",
     message: data.message || "",
     status: data.status ? STATUS.OK : STATUS.ERROR,
+    errorType: ERROR_TYPES.NONE
   };
 };
 
@@ -19,5 +20,6 @@ export const convertSetStoredLanguageResponseToData = (
     data: data.data || false,
     message: data.message || "",
     status: data.status ? STATUS.OK : STATUS.ERROR,
+    errorType: ERROR_TYPES.NONE
   };
 };
